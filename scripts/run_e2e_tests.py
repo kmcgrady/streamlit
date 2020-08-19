@@ -166,7 +166,7 @@ def kill_streamlits():
             try:
                 os.kill(int(pid), signal.SIGTERM)
             except Exception as e:
-                print("Failed to kill Streamlit instance", e)
+                print("Failed to kill Streamlit instance", e)  # noqa: T001
 
 
 def generate_mochawesome_report():

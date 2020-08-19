@@ -33,7 +33,7 @@ class EchoTest(testutil.DeltaGeneratorTestCase):
                 def foo(x):
                     y = x + 10
 
-                    print(y)
+                    print(y)  # noqa: T001
 
                 class MyClass(object):
                     def do_x(self):

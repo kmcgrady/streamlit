@@ -115,7 +115,7 @@ for lang in languages:
 
 st.subheader("Other stuff")
 with st.echo():
-    print("I'm inside an st.echo() block!")
+    print("I'm inside an st.echo() block!")  # noqa: T001
 
 st.markdown(
     """

@@ -21,7 +21,7 @@ from datetime import datetime
 
 
 if sys.version_info < (3, 6):
-    print("This script must be run with Python >= 3.6")
+    print("This script must be run with Python >= 3.6")  # noqa: T001
     sys.exit(-1)
 
 
@@ -139,12 +139,12 @@ glob_to_comment_style = {
 }
 
 
-print("Starting...")
+print("Starting...")  # noqa: T001
 files_seen = 0
 files_modified = 0
 
 for glob_pattern, comment_style in glob_to_comment_style.items():
-    print("Pattern %s:" % glob_pattern)
+    print("Pattern %s:" % glob_pattern)  # noqa: T001
 
     filenames = glob.glob(glob_pattern, recursive=True)
 
@@ -157,7 +157,7 @@ for glob_pattern, comment_style in glob_to_comment_style.items():
         if any(pattern in filename for pattern in EXCLUDE_PATTERNS):
             continue
 
-        print(filename)
+        print(filename)  # noqa: T001
 
         with open(filename, "r") as the_file:
             lines = the_file.readlines()
@@ -183,9 +183,9 @@ for glob_pattern, comment_style in glob_to_comment_style.items():
 
             files_modified += 1
 
-    print("")
+    print("")  # noqa: T001
 
-print(
+print(  # noqa: T001
     f"""
 Done!
 Saw {files_seen} files.

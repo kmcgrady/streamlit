@@ -134,4 +134,4 @@ class Widgets(object):
         self._state[key] = value
 
     def dump(self):
-        pprint(self._state)
+        pprint(self._state)  # noqa: T003

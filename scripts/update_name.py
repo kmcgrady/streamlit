@@ -50,7 +50,7 @@ def update_files(data, python=True):
             if pattern.match(line.rstrip()):
                 matched = True
             line = re.sub(regex, r"\g<pre>%s\g<post>" % project_name, line.rstrip())
-            print(line)
+            print(line)  # noqa: T001
         if not matched:
             raise Exception('In file "%s", did not find regex "%s"' % (filename, regex))
 

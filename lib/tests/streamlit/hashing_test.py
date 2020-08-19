@@ -758,7 +758,7 @@ class CodeHashTest(unittest.TestCase):
         """Tes code with builtins."""
 
         def code_with_print():
-            print(12)
+            print(12)  # noqa: T001
 
         def code_with_type():
             type(12)

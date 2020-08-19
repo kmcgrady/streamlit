@@ -56,4 +56,4 @@ if __name__ == "__main__":
     tag = create_tag()
 
     # Print so we can access the tag in the shell
-    print(tag)
+    print(tag)  # noqa: T001

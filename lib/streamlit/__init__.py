@@ -70,7 +70,7 @@ if (
     and os.path.isfile("/etc/machine-id") == False
     and os.path.isfile("/var/lib/dbus/machine-id") == False
 ):
-    print("Generate machine-id")
+    print("Generate machine-id")  # noqa: T001
     subprocess.run(["sudo", "dbus-uuidgen", "--ensure"])
 
 machine_id = str(_uuid.getnode())

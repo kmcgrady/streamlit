@@ -170,7 +170,7 @@ def main_version(ctx):
 @main.command("docs")
 def main_docs():
     """Show help in browser."""
-    print("Showing help page in browser...")
+    print("Showing help page in browser...")  # noqa: T001
     from streamlit import util
 
     util.open_browser("https://docs.streamlit.io")
@@ -273,9 +273,9 @@ def cache_clear():
     result = streamlit.caching.clear_cache()
     cache_path = streamlit.caching.get_cache_path()
     if result:
-        print("Cleared directory %s." % cache_path)
+        print("Cleared directory %s." % cache_path)  # noqa: T001
     else:
-        print("Nothing to clear at %s." % cache_path)
+        print("Nothing to clear at %s." % cache_path)  # noqa: T001
 
 
 # SUBCOMMAND: config

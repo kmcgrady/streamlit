@@ -65,7 +65,7 @@ def run_commands(section_header, commands, skip_last_input=False, comment=None):
             )
             response = click.getchar()
             if response == "a":
-                print("Turning on auto run.")
+                print("Turning on auto run.")  # noqa: T001
                 auto_run = True
 
 

@@ -28,7 +28,7 @@ def replace_css_vars(input_filename, output_filename):
 
 if __name__ == "__main__":
     if len(sys.argv) != 3:
-        print("Usage: replace_vars input.css output.css")
+        print("Usage: replace_vars input.css output.css")  # noqa: T001
         sys.exit(-1)
 
     input_filename = sys.argv[1]
