@@ -16,10 +16,8 @@
  */
 
 import React, { ReactElement } from "react"
-import classNames from "classnames"
 import { Map as ImmutableMap } from "immutable"
-
-import "assets/css/write.scss"
+import { Box } from "@chakra-ui/core"
 
 export interface TextProps {
   width: number
@@ -31,11 +29,17 @@ export interface TextProps {
  */
 export default function Text({ width, element }: TextProps): ReactElement {
   const body = element.get("body")
-  const styleProp = { width }
 
   return (
-    <div className={classNames("fixed-width", "stText")} style={styleProp}>
+    <Box
+      className="stText"
+      fontFamily="mono"
+      whiteSpace="pre"
+      fontSize="sm"
+      overflowX="auto"
+      width={width}
+    >
       {body}
-    </div>
+    </Box>
   )
 }

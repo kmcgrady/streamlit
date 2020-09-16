@@ -18,24 +18,28 @@
 import React from "react"
 import ReactDOM from "react-dom"
 
+import { ChakraProvider } from "@chakra-ui/core"
 import { Client as Styletron } from "styletron-engine-atomic"
 import { LightTheme, BaseProvider } from "baseui"
 import { Provider as StyletronProvider } from "styletron-react"
 import { SCSS_VARS } from "autogen/scssVariables"
+import theme from "./theme"
 import AppWithScreencast from "./App"
 
 const engine = new Styletron({ prefix: "st-" })
 const popupZIndex = Number(SCSS_VARS["$z-index-popup-menu"])
 
 ReactDOM.render(
-  <StyletronProvider value={engine}>
-    {/*
+  <ChakraProvider theme={theme}>
+    <StyletronProvider value={engine}>
+      {/*
       The BaseProvider type definition doesn't support zIndex, but the object
       actually does. See: https://baseweb.design/components/base-provider/
       // @ts-ignore */}
-    <BaseProvider theme={LightTheme} zIndex={popupZIndex}>
-      <AppWithScreencast />
-    </BaseProvider>
-  </StyletronProvider>,
+      <BaseProvider theme={LightTheme} zIndex={popupZIndex}>
+        <AppWithScreencast />
+      </BaseProvider>
+    </StyletronProvider>
+  </ChakraProvider>,
   document.getElementById("root")
 )

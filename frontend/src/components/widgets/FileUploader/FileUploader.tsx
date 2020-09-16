@@ -17,7 +17,8 @@
 
 import axios, { CancelTokenSource } from "axios"
 import { FileUploader as FileUploaderBaseui } from "baseui/file-uploader"
-import Icon from "components/shared/Icon"
+import { Icon } from "@chakra-ui/core"
+import { Warning } from "@emotion-icons/open-iconic"
 import { Map as ImmutableMap } from "immutable"
 import { FileUploadClient } from "lib/FileUploadClient"
 import { WidgetStateManager } from "lib/WidgetStateManager"
@@ -142,7 +143,7 @@ class FileUploader extends React.PureComponent<Props, State> {
     return (
       <div className="uploadStatus uploadError">
         <span className="body">
-          <Icon className="icon" type="warning" /> {errorMessage}
+          <Icon as={Warning} boxSize="icon" /> {errorMessage}
         </span>
         <Button color="link" onClick={this.reset}>
           OK

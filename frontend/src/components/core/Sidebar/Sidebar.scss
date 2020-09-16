@@ -64,26 +64,6 @@
       z-index: $z-index-sidebar-mobile;
     }
 
-    .sidebar-close {
-      position: absolute;
-      top: 0.5rem;
-      right: 0.5rem;
-      z-index: 1;
-
-      .open-iconic {
-        fill: $black;
-        opacity: 0.25;
-      }
-
-      &:hover {
-        background: transparent;
-
-        .open-iconic {
-          opacity: 1;
-        }
-      }
-    }
-
     h1 {
       font-size: 1.5rem;
       font-weight: 600;
@@ -109,35 +89,6 @@
       font-size: $font-size-sm;
       font-weight: 300;
       text-transform: uppercase;
-    }
-  }
-
-  .sidebar-collapse-control {
-    position: fixed;
-    top: 0.5rem;
-    left: -0.5rem;
-    z-index: $z-index-sidebar - 1;
-
-    transition: left $normal-animation-duration;
-    transition-delay: $normal-animation-duration;
-
-    .open-iconic {
-      fill: $black;
-      opacity: 0.25;
-
-      @include media-breakpoint-down(md) {
-        opacity: 1;
-      }
-    }
-
-    &:hover {
-      color: #fff;
-      background-color: $gray-lightest;
-      border-color: #1d2124;
-
-      .open-iconic {
-        opacity: 1;
-      }
     }
   }
 

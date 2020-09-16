@@ -16,7 +16,8 @@
  */
 
 import React, { ReactElement } from "react"
-import Icon from "components/shared/Icon"
+import { Icon } from "@chakra-ui/core"
+import { ChevronTop, ChevronBottom } from "@emotion-icons/open-iconic"
 import { SortDirection } from "./SortDirection"
 
 export interface DataFrameCellProps {
@@ -115,15 +116,18 @@ export default function DataFrameCell({
 function drawSortIcon(sortDirection?: SortDirection): React.ReactNode {
   // If these icons are changed, you may also need to update DataFrame.SORT_ICON_WIDTH
   // to ensure proper column width padding
-  switch (sortDirection) {
-    case SortDirection.ASCENDING:
-      return <Icon className="sort-arrow-icon" type="chevron-top" />
-
-    case SortDirection.DESCENDING:
-      return <Icon className="sort-arrow-icon" type="chevron-bottom" />
-
-    case undefined:
-    default:
-      return null
+  let icon = null
+  if (sortDirection === SortDirection.ASCENDING) {
+    icon = ChevronTop
+  } else if (sortDirection === SortDirection.DESCENDING) {
+    icon = ChevronBottom
   }
+
+  if (icon) {
+    return (
+      <Icon as={icon} boxSize="2" mr="1" opacity={0.3} verticalAlign="top" />
+    )
+  }
+
+  return null
 }

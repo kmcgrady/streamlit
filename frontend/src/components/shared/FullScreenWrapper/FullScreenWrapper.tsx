@@ -17,7 +17,8 @@
 
 import React, { PureComponent } from "react"
 import { SCSS_VARS } from "autogen/scssVariables"
-import Icon from "../Icon"
+import { Icon } from "@chakra-ui/core"
+import { FullscreenEnter, FullscreenExit } from "@emotion-icons/open-iconic"
 import "./FullScreenWrapper.scss"
 
 export type Size = {
@@ -111,13 +112,13 @@ class FullScreenWrapper extends PureComponent<Props, State> {
     const { children, width, height } = this.props
 
     let buttonClassName = "overlayBtn stButton-enter"
-    let buttonImage = "fullscreen-enter"
+    let buttonImage = FullscreenEnter
     let buttonOnClick = this.zoomIn
     let buttonTitle = "View fullscreen"
 
     if (expanded) {
       buttonClassName = "overlayBtn stButton-exit"
-      buttonImage = "fullscreen-exit"
+      buttonImage = FullscreenExit
       buttonOnClick = this.zoomOut
       buttonTitle = "Exit fullscreen"
     }
@@ -129,7 +130,7 @@ class FullScreenWrapper extends PureComponent<Props, State> {
           onClick={buttonOnClick}
           title={buttonTitle}
         >
-          <Icon type={buttonImage} />
+          <Icon as={buttonImage} boxSize="icon" />
         </button>
         {expanded
           ? children({ width: fullWidth, height: fullHeight, expanded })

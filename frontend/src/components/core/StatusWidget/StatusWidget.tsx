@@ -22,13 +22,15 @@ import { CSSTransition } from "react-transition-group"
 import { Button } from "reactstrap"
 import Tooltip, { Placement } from "components/shared/Tooltip"
 import { SignalConnection } from "typed-signals"
+import { Icon } from "@chakra-ui/core"
+import { EmotionIcon } from "@emotion-icons/emotion-icon"
+import { Info, Ellipses, Warning } from "@emotion-icons/open-iconic"
 
 import { ConnectionState } from "lib/ConnectionState"
 import { SessionEvent } from "autogen/proto"
 import { SessionEventDispatcher } from "lib/SessionEventDispatcher"
 import { ReportRunState } from "lib/ReportRunState"
 import { Timer } from "lib/Timer"
-import Icon from "components/shared/Icon"
 
 /*
  * IMPORTANT: If you change the asset import below, make sure it still works if Streamlit is served
@@ -89,7 +91,7 @@ interface State {
 }
 
 interface ConnectionStateUI {
-  icon: string
+  icon: EmotionIcon
   label: string
   tooltip: string
 }
@@ -273,7 +275,7 @@ class StatusWidget extends PureComponent<StatusWidgetProps, State> {
           id="ConnectionStatus"
           className={this.state.statusMinimized ? "minimized" : ""}
         >
-          <Icon className="icon" type={ui.icon} />
+          <Icon as={ui.icon} color="gray.600" boxSize="icon" />
           <label>{ui.label}</label>
         </div>
       </Tooltip>
@@ -338,15 +340,14 @@ class StatusWidget extends PureComponent<StatusWidgetProps, State> {
             id="ReportStatus"
             className={minimized ? "rerun-prompt-minimized" : ""}
           >
-            <Icon className="icon" type="info" />
+            <Icon as={Info} color="gray.700" />
+            {/* TODO */}
             <label className="prompt">Source file changed.</label>
-
             {StatusWidget.promptButton(
               <div className="underlineFirstLetter">Rerun</div>,
               rerunRequested,
               this.handleRerunClick
             )}
-
             {StatusWidget.promptButton(
               <div className="underlineFirstLetter">Always rerun</div>,
               rerunRequested,
@@ -405,7 +406,7 @@ class StatusWidget extends PureComponent<StatusWidgetProps, State> {
       case ConnectionState.PINGING_SERVER:
       case ConnectionState.CONNECTING:
         return {
-          icon: "ellipses",
+          icon: Ellipses,
           label: "Connecting",
           tooltip: "Connecting to Streamlit server",
         }
@@ -417,7 +418,7 @@ class StatusWidget extends PureComponent<StatusWidgetProps, State> {
       case ConnectionState.DISCONNECTED_FOREVER:
       default:
         return {
-          icon: "warning",
+          icon: Warning,
           label: "Error",
           tooltip: "Unable to connect to Streamlit server",
         }

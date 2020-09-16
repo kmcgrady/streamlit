@@ -22,7 +22,8 @@ import { Map as ImmutableMap } from "immutable"
 import { NumberInput as NumberInputProto } from "autogen/proto"
 import { WidgetStateManager, Source } from "lib/WidgetStateManager"
 
-import Icon from "components/shared/Icon"
+import { Icon } from "@chakra-ui/core"
+import { Plus, Minus } from "@emotion-icons/open-iconic"
 import { Input as UIInput } from "baseui/input"
 import InputInstructions from "components/shared/InputInstructions/InputInstructions"
 
@@ -274,13 +275,13 @@ class NumberInput extends React.PureComponent<Props, State> {
               className="control step-down"
               onClick={this.modifyValueUsingStep("decrement")}
             >
-              <Icon type="minus" />
+              <Icon as={Minus} boxSize="2" />
             </button>
             <button
               className="control step-up"
               onClick={this.modifyValueUsingStep("increment")}
             >
-              <Icon type="plus" />
+              <Icon as={Plus} boxSize="2" />
             </button>
           </div>
         </div>

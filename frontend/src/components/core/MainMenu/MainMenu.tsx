@@ -23,7 +23,8 @@ import {
   DropdownToggle,
 } from "reactstrap"
 
-import Icon from "components/shared/Icon"
+import { Icon } from "@chakra-ui/core"
+import { Menu } from "@emotion-icons/open-iconic"
 import {
   IMenuItem,
   IGuestToHostMessage,
@@ -192,7 +193,7 @@ function MainMenu(props: Props): ReactElement {
   return (
     <Dropdown id="MainMenu" isOpen={dropdownOpen} toggle={toggleDropdown}>
       <DropdownToggle outline color="secondary" id="MainMenuButton">
-        <Icon type="menu" />
+        <Icon as={Menu} boxSize="icon" />
 
         {props.screenCastState === "RECORDING" && (
           <span className="recording-indicator" />
