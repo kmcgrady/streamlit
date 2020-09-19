@@ -21,6 +21,9 @@ import { Datepicker as UIDatePicker } from "baseui/datepicker"
 import { Map as ImmutableMap } from "immutable"
 import { WidgetStateManager, Source } from "lib/WidgetStateManager"
 import { datePickerOverrides } from "lib/widgetTheme"
+import styled from "@emotion/styled"
+import { themeGet, withTheme } from "themeable"
+import componentTheme from "./theme"
 
 export interface Props {
   disabled: boolean
@@ -43,6 +46,11 @@ interface State {
 
 // Date format for communication (protobuf) support
 const DATE_FORMAT = "YYYY/MM/DD"
+const Label = styled.label`
+  color: ${themeGet("labelTextColor")};
+  font-size: ${themeGet("labelTextSize")};
+  margin-bottom: ${themeGet("labelSpacing")};
+`
 
 class DateInput extends React.PureComponent<Props, State> {
   public state: State = {
@@ -94,8 +102,8 @@ class DateInput extends React.PureComponent<Props, State> {
     const maxDate = this.getMaxDate()
 
     return (
-      <div className="Widget stDateInput" style={style}>
-        <label>{label}</label>
+      <div className="stDateInput" style={style}>
+        <Label>{label}</Label>
         <UIDatePicker
           formatString="yyyy/MM/dd"
           disabled={disabled}
@@ -111,4 +119,4 @@ class DateInput extends React.PureComponent<Props, State> {
   }
 }
 
-export default DateInput
+export default withTheme(DateInput, componentTheme)

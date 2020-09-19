@@ -35,6 +35,10 @@
   },
   "dependencies": {
     "@bokeh/bokehjs": "2.0.0",
+    "@emotion-icons/emotion-icon": "^2.0.3",
+    "@emotion-icons/open-iconic": "^2.10.0",
+    "@emotion/core": "^10.0.35",
+    "@emotion/styled": "^10.0.27",
     "@loaders.gl/core": "^2.0.2",
     "@loaders.gl/csv": "^2.0.2",
     "aws-sdk": "^2.524.0",
@@ -48,6 +52,7 @@
     "d3-graphviz": "^2.6.1",
     "deck.gl": "^8.0.12",
     "dompurify": "^2.0.12",
+    "emotion-theming": "^10.0.27",
     "hoist-non-react-statics": "^3.3.2",
     "immutable": "^4.0.0-rc.12",
     "katex": "^0.11.1",
