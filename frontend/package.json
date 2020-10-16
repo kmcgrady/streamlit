@@ -34,7 +34,7 @@
     }
   },
   "dependencies": {
-    "@bokeh/bokehjs": "2.0.0",
+    "@bokeh/bokehjs": "2.2.2",
     "@loaders.gl/core": "^2.2.8",
     "@loaders.gl/csv": "^2.2.8",
     "aws-sdk": "^2.729.0",
