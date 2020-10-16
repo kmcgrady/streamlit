@@ -128,7 +128,7 @@
     "@types/styletron-standard": "^2.0.1",
     "@types/xxhashjs": "^0.2.2",
     "@typescript-eslint/eslint-plugin": "^4.0.1",
-    "@typescript-eslint/parser": "^4.0.1",
+    "@typescript-eslint/parser": "^4.4.1",
     "axios-mock-adapter": "^1.18.2",
     "cypress": "4.1.0",
     "cypress-file-upload": "^3.5.1",
