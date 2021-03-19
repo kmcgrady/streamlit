@@ -407,6 +407,10 @@ class ReportSession(object):
 
             self._repo = GitRepo(self._report.script_path)
 
+            repo_info = self._repo.get_repo_info()
+            if repo_info is None:
+                return
+
             repo, branch, module = self._repo.get_repo_info()
 
             msg.git_info_changed.repository = repo

@@ -1101,6 +1101,7 @@ export class App extends PureComponent<Props, State> {
                   this.state.dialog?.type === DialogType.DEPLOY_ERROR
                 }
                 loadGitInfo={this.sendLoadGitInfoBackMsg}
+                wasSessionInfoInitialized={SessionInfo.isSet()}
               />
             </Header>
 
