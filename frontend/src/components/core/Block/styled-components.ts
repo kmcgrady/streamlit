@@ -124,11 +124,13 @@ export const StyledForm = styled.div<StyledFormProps>(({ theme }) => ({
   borderRadius: theme.radii.md,
 }))
 
-export const styledVerticalBlockWrapperStyles: any = {
-  display: "flex",
-  flexDirection: "column",
-  flex: 1,
-}
+export const StyledVerticalBlockWrapper = styled.div<StyledVerticalBlockProps>(
+  {
+    display: "flex",
+    flexDirection: "column",
+    flex: 1,
+  }
+)
 
 export interface StyledVerticalBlockProps {
   ref?: React.RefObject<any>
