@@ -99,6 +99,8 @@
     ],
     // Disable a bunch of AirBNB rules we're currently in violation of.
     // TODO: For each one, either fix and reenable, or provide a justification.
+    "@typescript-eslint/no-shadow": "off",
+    "import/no-named-as-default-member": "off",
     "import/prefer-default-export": "off",
     "max-classes-per-file": "off",
     "no-shadow": "off",
@@ -117,7 +119,7 @@
     },
     // Check for import violation in all JS-like files
     "import/resolver": {
-      "node": {
+      "typescript": {
         "extensions": [".js", ".jsx", ".ts", ".tsx", ".json"]
       }
     }
