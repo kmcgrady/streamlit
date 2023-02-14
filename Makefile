@@ -118,6 +118,30 @@ pyformat:
 	pre-commit run black --all-files
 	pre-commit run isort --all-files
 
+.PHONY: pycoverage
+# Show Python test coverage.
+pycoverage:
+	# testing + code coverage
+	cd lib; \
+		PYTHONPATH=. \
+		pytest -v \
+			--junitxml=test-reports/pytest/junit.xml \
+			-l $(foreach dir,$(PYTHON_MODULES),--cov=$(dir)) \
+			--cov-report=term-missing tests/ \
+			$(PYTHON_MODULES)
+
+.PHONY: pycoverage_html
+# Generate HTML report of Python test coverage.
+pycoverage_html:
+	# testing + code coverage
+	cd lib; \
+		PYTHONPATH=. \
+		pytest -v \
+			--junitxml=test-reports/pytest/junit.xml \
+			-l $(foreach dir,$(PYTHON_MODULES),--cov=$(dir)) \
+			--cov-report=html tests/ \
+			$(PYTHON_MODULES)
+
 .PHONY: pytest
 # Run Python unit tests.
 pytest:
@@ -318,8 +342,7 @@ endif
 .PHONY: jscoverage
 # Run JS unit tests and generate a coverage report.
 jscoverage:
-	cd frontend; yarn run test --coverage --watchAll=false
-
+	cd frontend; yarn run test:coverage
 .PHONY: e2etest
 # Run E2E tests.
 e2etest:
