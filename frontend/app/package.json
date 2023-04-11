@@ -44,7 +44,6 @@
     "@luma.gl/shadertools": "^8.5.18",
     "@luma.gl/webgl": "^8.5.18",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.10",
-    "@streamlit/lib": "1.0.0",
     "@svgr/webpack": "^5.5.0",
     "apache-arrow": "^11.0.0",
     "axios": "^0.27.2",

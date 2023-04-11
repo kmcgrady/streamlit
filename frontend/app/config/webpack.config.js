@@ -328,7 +328,7 @@ module.exports = function (webpackEnv) {
         // Support React Native Web
         // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
         "react-native": "react-native-web",
-        "@streamlit/lib": "@streamlit/lib/src",
+        "@streamlit/lib": paths.libSrc,
         // Allows for better profiling with ReactDevTools
         ...(isEnvProductionProfile && {
           "react-dom$": "react-dom/profiling",
@@ -336,21 +336,6 @@ module.exports = function (webpackEnv) {
         }),
         ...(modules.webpackAliases || {}),
       },
-      plugins: [
-        // Prevents users from importing files from outside of src/ (or node_modules/).
-        // This often causes confusion because we only process files within src/ with babel.
-        // To fix this, we prevent you from importing files out of src/ -- if you'd like to,
-        // please link the files into your node_modules/ and let module-resolution kick in.
-        // Make sure your source files are compiled, as they will not be processed in any way.
-        new ModuleScopePlugin(paths.appSrc, [
-          paths.appPackageJson,
-          reactRefreshRuntimeEntry,
-          reactRefreshWebpackPluginRuntimeEntry,
-          babelRuntimeEntry,
-          babelRuntimeEntryHelpers,
-          babelRuntimeRegenerator,
-        ]),
-      ],
     },
     module: {
       strictExportPresence: true,
@@ -421,7 +406,7 @@ module.exports = function (webpackEnv) {
             // The preset includes JSX, Flow, TypeScript, and some ESnext features.
             {
               test: /\.(js|mjs|jsx|ts|tsx)$/,
-              include: paths.appSrc,
+              include: [paths.appSrc, paths.libSrc],
               loader: require.resolve("babel-loader"),
               options: {
                 customize: require.resolve(
@@ -439,45 +424,6 @@ module.exports = function (webpackEnv) {
                   isEnvDevelopment &&
                     shouldUseReactRefresh &&
                     require.resolve("react-refresh/babel"),
-                ].filter(Boolean),
-                // This is a feature of `babel-loader` for webpack (not Babel itself).
-                // It enables caching results in ./node_modules/.cache/babel-loader/
-                // directory for faster rebuilds.
-                cacheDirectory: true,
-                // See #6846 for context on why cacheCompression is disabled
-                cacheCompression: false,
-                compact: isEnvProduction,
-              },
-            },
-            // watch and recompile streamlit lib
-            {
-              test: /\.(js|mjs|jsx|ts|tsx)$/,
-              include: /streamlit\/frontend\/lib/,
-              loader: require.resolve("babel-loader"),
-              options: {
-                customize: require.resolve(
-                  "babel-preset-react-app/webpack-overrides"
-                ),
-                presets: [
-                  [
-                    require.resolve("babel-preset-react-app"),
-                    {
-                      runtime: hasJsxRuntime ? "automatic" : "classic",
-                    },
-                  ],
-                ],
-                plugins: [
-                  isEnvDevelopment &&
-                    shouldUseReactRefresh &&
-                    require.resolve("react-refresh/babel"),
-                  [
-                    require.resolve("babel-plugin-module-resolver"),
-                    {
-                      alias: {
-                        src: path.resolve(__dirname, "../../lib/src"),
-                      },
-                    },
-                  ],
                   "@emotion",
                 ].filter(Boolean),
                 // This is a feature of `babel-loader` for webpack (not Babel itself).

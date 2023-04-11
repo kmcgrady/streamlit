@@ -13,6 +13,10 @@
       "moduleResolution": "node",
       "noEmit": true,
       "noFallthroughCasesInSwitch": true,
+      "paths": {
+          "@streamlit/lib": ["../lib/src"],
+          "@streamlit/lib/*": ["../lib/src/*"]
+      },
       "resolveJsonModule": true,
       "skipLibCheck": true,
       "strict": true,
@@ -20,4 +24,4 @@
       "declaration": true,
     },
     "include": ["src"]
-  }
+}
