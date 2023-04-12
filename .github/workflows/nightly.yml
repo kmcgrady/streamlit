@@ -3,7 +3,7 @@ name: Nightly Build
 on:
   schedule:
     # Run job at 10.30pm PST or 11.30pm PDT
-    - cron:  '30 6 * * *'
+    - cron: "30 6 * * *"
 
 jobs:
   create-nightly-tag:
@@ -26,7 +26,7 @@ jobs:
       - name: Checkout Streamlit code
         uses: actions/checkout@v3
         with:
-          submodules: 'recursive'
+          submodules: "recursive"
           persist-credentials: false
           fetch-depth: 2
       - name: Set Python version vars
@@ -51,7 +51,7 @@ jobs:
           ./scripts/update_version.py $TAG
           ./scripts/update_name.py streamlit-nightly
 
-          git add lib/setup.py frontend/package.json lib/streamlit/__init__.py lib/streamlit/version.py
+          git add lib/setup.py frontend/app/package.json lib/streamlit/__init__.py lib/streamlit/version.py
 
           git commit -m "Update version and project name in files"
 
@@ -99,7 +99,14 @@ jobs:
     if: ${{ always() }}
     # By default, jobs listed in needs must all complete successfully for the dependent job to run. always() conditional
     # added as we'd like this job to run whether or not tests pass & slack us regarding failing tests.
-    needs: [create-nightly-tag, run-python-tests, run-javascript-tests, run-py-prod-deps-smoke-test, run-cypress-tests]
+    needs:
+      [
+        create-nightly-tag,
+        run-python-tests,
+        run-javascript-tests,
+        run-py-prod-deps-smoke-test,
+        run-cypress-tests,
+      ]
 
     env:
       SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
@@ -111,7 +118,7 @@ jobs:
         with:
           ref: ${{ needs.create-nightly-tag.outputs.tag }}
           persist-credentials: false
-          submodules: 'recursive'
+          submodules: "recursive"
       - if: ${{ needs.run-python-tests.result == 'failure' }}
         run: python scripts/slack_notifications.py nightly python
       - if: ${{ needs.run-javascript-tests.result == 'failure' }}
@@ -125,7 +132,14 @@ jobs:
     runs-on: ubuntu-latest
 
     # Tag creation & tests must all complete successfully for nightly build job to run.
-    needs: [create-nightly-tag, run-python-tests, run-javascript-tests, run-py-prod-deps-smoke-test, run-cypress-tests]
+    needs:
+      [
+        create-nightly-tag,
+        run-python-tests,
+        run-javascript-tests,
+        run-py-prod-deps-smoke-test,
+        run-cypress-tests,
+      ]
 
     defaults:
       run:
@@ -141,7 +155,7 @@ jobs:
         with:
           ref: ${{ needs.create-nightly-tag.outputs.tag }}
           persist-credentials: false
-          submodules: 'recursive'
+          submodules: "recursive"
       - name: Set Python version vars
         uses: ./.github/actions/build_info
       - name: Set up Python ${{ env.PYTHON_MAX_VERSION }}

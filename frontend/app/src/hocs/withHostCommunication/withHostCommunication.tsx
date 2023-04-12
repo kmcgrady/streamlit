@@ -23,7 +23,7 @@ import Resolver from "src/lib/Resolver"
 import { isValidOrigin } from "src/lib/UriUtil"
 
 // Uncomment this code if testing out host communication with
-// frontend/hostframe.html:
+// frontend/app/hostframe.html:
 // import { IS_DEV_ENV } from "src/lib/baseconsts"
 
 import {
@@ -134,7 +134,7 @@ function withHostCommunication<P extends InjectedProps>(
       const { allowedOrigins, useExternalAuthToken } = allowedOriginsResp
 
       // Uncomment this code if testing out host communication with
-      // frontend/hostframe.html:
+      // frontend/app/hostframe.html:
       //
       // if (IS_DEV_ENV) {
       //   allowedOrigins.push("http://localhost:8000")

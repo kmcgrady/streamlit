@@ -59,7 +59,7 @@ BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 # there.
 PYTHON = {"lib/setup.py": r"(?P<pre>.*VERSION = \").*(?P<post>\"  # PEP-440$)"}
 
-NODE = {"frontend/package.json": r'(?P<pre>^  "version": ").*(?P<post>",$)'}
+NODE = {"frontend/app/package.json": r'(?P<pre>^  "version": ").*(?P<post>",$)'}
 
 
 def verify_pep440(version):

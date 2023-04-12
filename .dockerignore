@@ -4,6 +4,6 @@ Dockerfile
 docker-compose.yml
 .git
 .gitignore
-frontend/node_modules
-frontend/test_results
+frontend/app/node_modules
+frontend/app/test_results
 venv

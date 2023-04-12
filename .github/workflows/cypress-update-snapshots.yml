@@ -29,7 +29,7 @@ jobs:
         with:
           ref: ${{ github.ref_name }}
           persist-credentials: false
-          submodules: 'recursive'
+          submodules: "recursive"
           fetch-depth: 2
       - name: Set Python version vars
         uses: ./.github/actions/build_info
@@ -74,10 +74,10 @@ jobs:
         if: always()
         with:
           name: cypress_snapshots
-          path: frontend/cypress/snapshots/linux/2x/${{ inputs.testname }}.spec.js
+          path: frontend/app/cypress/snapshots/linux/2x/${{ inputs.testname }}.spec.js
       - name: Store Videos
         uses: actions/upload-artifact@v3
         if: always()
         with:
           name: cypress_videos
-          path: frontend/cypress/videos
+          path: frontend/app/cypress/videos

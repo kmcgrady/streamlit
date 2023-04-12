@@ -53,8 +53,8 @@ repos:
       # See: https://github.com/pre-commit/pre-commit/issues/1417
       - id: prettier
         name: Prettier
-        entry: ./scripts/run_in_subdirectory.py frontend/ yarn prettier --write
-        files: ^frontend/.*\.(js|jsx|ts|tsx)$
+        entry: ./scripts/run_in_subdirectory.py frontend/app/ yarn prettier --write
+        files: ^frontend/app/.*\.(js|jsx|ts|tsx)$
         exclude: /vendor/
         language: node
         pass_filenames: true
@@ -63,7 +63,7 @@ repos:
       - id: typecheck
         name: Typecheck
         always_run: true
-        entry: yarn --cwd frontend tsc --noEmit
+        entry: yarn --cwd frontend/app tsc --noEmit
         files: \.(js|jsx|ts|tsx)$
         language: node
         pass_filenames: false
@@ -74,8 +74,8 @@ repos:
       - id: eslint
         name: Eslint
         always_run: true
-        entry: ./scripts/run_in_subdirectory.py frontend/ yarn lint --fix
-        files: ^frontend/src/.*\.(js|jsx|ts|tsx)$
+        entry: ./scripts/run_in_subdirectory.py frontend/app/ yarn lint --fix
+        files: ^frontend/app/src/.*\.(js|jsx|ts|tsx)$
         language: node
         pass_filenames: true
         stages:
@@ -109,7 +109,7 @@ repos:
           (?x)
           /vendor/
           |^component-lib/declarations/apache-arrow
-          |^frontend/src/assets/css/variables\.scss
+          |^frontend/app/src/assets/css/variables\.scss
       - id: insert-license
         name: Add license for all Proto files
         files: \.proto$
@@ -170,7 +170,7 @@ repos:
       - id: trailing-whitespace
         exclude: |
           (?x)
-          ^frontend/src/assets/
+          ^frontend/app/src/assets/
           |^NOTICES$
           |^proto/streamlit/proto/openmetrics_data_model.proto$
           |\.snap$

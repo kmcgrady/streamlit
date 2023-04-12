@@ -433,7 +433,7 @@ def run_e2e_tests(
     app_server = run_app_server()
 
     # Clear reports from previous runs
-    remove_if_exists("frontend/test_results/cypress")
+    remove_if_exists("frontend/app/test_results/cypress")
 
     ctx = Context()
     ctx.always_continue = always_continue

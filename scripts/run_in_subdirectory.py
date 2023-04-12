@@ -50,10 +50,10 @@ def display_usage():
     example:
 
     When this program is executed with the following command:
-       {prog} frontend/ yarn eslint frontend/src/index.ts
+       {prog} frontend/app/ yarn eslint frontend/app/src/index.ts
     Then the command will be executed:
         yarn eslint src/index.ts
-    and the current working directory will be set to frontend/
+    and the current working directory will be set to frontend/app/
 
     positional arguments:
       SUBDIRECTORY  subdirectory within which the subprocess will be executed

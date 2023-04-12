@@ -108,7 +108,7 @@ ENV PATH $APP/venv/bin:$PATH
 ENV VIRTUAL_ENV=$APP/venv
 
 # copy package.json
-COPY --chown=$USER frontend/package.json frontend/yarn.lock ./frontend/
+COPY --chown=$USER frontend/app/package.json frontend/app/yarn.lock ./frontend/app/
 
 # install node modules
 RUN make react-init
