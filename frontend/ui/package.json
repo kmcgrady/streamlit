@@ -1,0 +1,39 @@
+{
+  "name": "streamlit-ui",
+  "version": "1.21.0",
+  "private": true,
+  "homepage": "./",
+  "type": "module",
+  "module": "dist/es/index.js",
+  "main": "dist/es/index.js",
+  "sideEffects": false,
+  "types": "dist/es/index.d.ts",
+  "scripts": {
+    "build:es": "tsc -p tsconfig.json",
+    "build:watch": "",
+    "test": "env NODE_OPTIONS=--max_old_space_size=8192 craco test --env=./jsdom-polyfill-env.js --runTestsByPath ${TESTPATH}",
+    "test:coverage": "env NODE_OPTIONS=--max_old_space_size=8192 craco test --env=./jsdom-polyfill-env.js --coverage --watchAll false --watch false ./",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "lint": "eslint --ext .js --ext .jsx --ext .ts --ext .tsx --max-warnings 0 src"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@babel/cli": "^7.20.7",
+    "@babel/core": "^7.20.7",
+    "@babel/plugin-proposal-private-property-in-object": "^7.20.5",
+    "@babel/plugin-transform-runtime": "^7.20.7",
+    "@babel/preset-env": "^7.20.7",
+    "@babel/preset-typescript": "^7.20.7",
+    "@babel/runtime": "^7.20.13",
+    "@typescript-eslint/eslint-plugin": "^5.51.0",
+    "@typescript-eslint/parser": "^5.51.0",
+    "prettier": "^2.8.3",
+    "typescript": "^4.9.5"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
+}

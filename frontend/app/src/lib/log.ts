@@ -38,16 +38,8 @@ export function logWarning(...args: any[]): void {
   }
 }
 
-/**
- * Log an error to the console. ALWAYS does this, even if in prod mode, because
- * errors are _that_ important.
- * USE ONLY FOR ERRORS: Meaning, only things that somehow "break" the user
- * experience.
- */
-export function logError(...args: any[]): void {
-  console.error(...args)
-  // TODO: Send error report to our servers when there's an error.
-}
+import { logError as importedLogError } from "streamlit-ui"
+export const logError = importedLogError
 
 /**
  * Log a message to the console. ALWAYS does this, even if in prod mode.

@@ -47,6 +47,7 @@ IGNORE_PATTERN = re.compile(
     # degree of creativity.
     r"|^(\.dockerignore|\.editorconfig|\.gitignore|\.gitmodules)$"
     r"|^frontend/app/(\.dockerignore|\.eslintrc|\.prettierignore)$"
+    r"|^frontend/ui/(\.dockerignore|\.eslintrc|\.prettierignore)$"
     r"|^lib/(\.coveragerc|\.dockerignore|MANIFEST\.in|mypy\.ini|pytest\.ini)$"
     r"|^lib/(test-requirements-with-tensorflow\.txt|(test|dev)-requirements\.txt)$"
     r"|\.isort\.cfg$"

@@ -1,7 +1,10 @@
 {
   "name": "streamlit-monorepo",
   "version": "1.21.0",
-  "workspaces": ["app"],
+  "workspaces": [
+    "app",
+    "ui"
+  ],
   "private": true,
   "homepage": "./",
   "dependencies": {},
