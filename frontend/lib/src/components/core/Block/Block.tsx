@@ -57,7 +57,8 @@ const BlockNodeRenderer = (props: BlockPropsWithWidth): ReactElement => {
   if (
     node.isEmpty &&
     !node.deltaBlock.column &&
-    !node.deltaBlock.chatMessage
+    !node.deltaBlock.chatMessage &&
+    !node.deltaBlock.expandable
   ) {
     return <></>
   }
