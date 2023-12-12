@@ -26,12 +26,6 @@ module.exports = {
     },
     configure: webpackConfig => {
       webpackConfig.optimization.minimize = false
-      webpackConfig.optimization.runtimeChunk = false
-      webpackConfig.optimization.splitChunks = {
-        cacheGroups: {
-          default: false,
-        },
-      }
       return webpackConfig
     },
   },
