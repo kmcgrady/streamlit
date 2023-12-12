@@ -388,7 +388,12 @@ export class BlockNode implements AppNode {
       return undefined
     }
 
-    return new BlockNode(newChildren, this.deltaBlock, currentScriptRunId)
+    return new BlockNode(
+      newChildren,
+      this.deltaBlock,
+      currentScriptRunId,
+      this.name
+    )
   }
 
   public getElements(elementSet?: Set<Element>): Set<Element> {
@@ -411,8 +416,6 @@ export class AppRoot {
   private readonly root: BlockNode
 
   private namespaces: Record<string, BlockNode> = {}
-
-  private namespaceIdx: string[] = []
 
   /**
    * Create an empty AppRoot with a placeholder "skeleton" element.
@@ -470,7 +473,9 @@ export class AppRoot {
       "event"
     )
 
-    return new AppRoot(new BlockNode([main, sidebar, event]))
+    return new AppRoot(
+      new BlockNode([main, sidebar, event], undefined, undefined, "root")
+    )
   }
 
   public constructor(root: BlockNode) {
@@ -593,15 +598,10 @@ export class AppRoot {
 
   public clearStaleNodes(currentScriptRunId: string): AppRoot {
     const newChildren = (this.root.children as BlockNode[]).map(child => {
-      const newChild =
-        child.clearStaleNodes(currentScriptRunId) || new BlockNode()
-      for (const key of Object.keys(this.namespaces)) {
-        if (this.namespaces[key] === child) {
-          this.namespaces[key] = newChild
-        }
-      }
-
-      return newChild
+      return (
+        child.clearStaleNodes(currentScriptRunId) ||
+        new BlockNode([], undefined, undefined, child.name)
+      )
     })
 
     return new AppRoot(
