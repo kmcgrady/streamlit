@@ -45,6 +45,7 @@ For more detailed info, see https://docs.streamlit.io.
 # IMPORTANT: Prefix with an underscore anything that the user shouldn't see.
 
 # Must be at the top, to avoid circular dependency.
+from typing import Any
 from streamlit import logger as _logger
 from streamlit import config as _config
 from streamlit.deprecation_util import deprecate_func_name as _deprecate_func_name
@@ -213,3 +214,32 @@ experimental_data_editor = _main.experimental_data_editor
 experimental_connection = _deprecate_func_name(
     connection, "experimental_connection", "2024-04-01", name_override="connection"
 )
+
+
+STARTING_ID = 3
+
+
+class Namespaces:
+    def __init__(self) -> None:
+        object.__setattr__(self, "_attrs", {})
+        object.__setattr__(self, "_num", STARTING_ID)
+
+    def __getattribute__(self, __name: str) -> Any:
+        _attrs = object.__getattribute__(self, "_attrs")
+        if __name == "_attrs":
+            return _attrs
+        elif __name == "_names":
+            return list(_attrs.keys())
+        _num = object.__getattribute__(self, "_num")
+        if __name in _attrs:
+            return _attrs[__name]
+
+        # If I don't change the root_container, the namespace will be the same
+        # as the main namespace.
+        _attrs[__name] = _DeltaGenerator(root_container=_num, parent=_main)
+        object.__setattr__(self, "_num", _num + 1)
+
+        return _attrs[__name]
+
+
+ns = Namespaces()
