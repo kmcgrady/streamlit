@@ -25,6 +25,7 @@ import { ComponentRegistry } from "@streamlit/lib/src/components/widgets/CustomC
 import { SessionInfo } from "@streamlit/lib/src/SessionInfo"
 import { StreamlitEndpoints } from "@streamlit/lib/src/StreamlitEndpoints"
 import { EmotionTheme, getDividerColors } from "@streamlit/lib/src/theme"
+import type { ComponentMapper } from "src/ComponentMapper"
 
 export function shouldComponentBeEnabled(
   elementType: string,
@@ -149,4 +150,6 @@ export interface BaseBlockProps {
    * from that callback.
    */
   formsData: FormsData
+
+  componentMapper?: ComponentMapper
 }

@@ -243,6 +243,20 @@ const RawElementNodeRenderer = (
   // since leaf elements are always direct children of a VerticalBlock, which always calculates
   const width = props.width ?? 0
 
+  if (
+    node.element.type &&
+    props.componentMapper &&
+    props.componentMapper[node.element.type]
+  ) {
+    const componentFunc = props.componentMapper[node.element.type]
+    switch (node.element.type) {
+      case "heading":
+        return componentFunc({
+          value: node.element.heading?.body,
+        })
+    }
+  }
+
   switch (node.element.type) {
     case "alert": {
       const alertProto = node.element.alert as AlertProto

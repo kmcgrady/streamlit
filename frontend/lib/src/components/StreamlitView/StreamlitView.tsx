@@ -30,6 +30,7 @@ import { StreamlitEndpoints } from "@streamlit/lib/src/StreamlitEndpoints"
 import { BaseUriParts, buildHttpUri } from "@streamlit/lib/src/util/UriUtil"
 
 import { useStreamlitElementTree } from "../StreamlitApp/stores/StreamlitElementTreeContext"
+import { ComponentMapper } from "../../ComponentMapper"
 
 const COMPONENT_ENDPOINT_BASE = "/component"
 const MEDIA_ENDPOINT = "/media"
@@ -76,10 +77,12 @@ class DummyEndpoints implements StreamlitEndpoints {
 
 export interface StreamlitViewProps {
   namespace: string
+  componentMapper?: ComponentMapper
 }
 
 export function StreamlitView({
   namespace,
+  componentMapper,
 }: StreamlitViewProps): ReactElement {
   const { connectionState, workingEndpoint } = useStreamlitConnection()
   const { widgetManager, formsData } = useWidgetStateManager()
@@ -127,6 +130,7 @@ export function StreamlitView({
       uploadClient={uploadClient}
       componentRegistry={componentRegistry}
       formsData={formsData}
+      componentMapper={componentMapper}
     />
   )
 }

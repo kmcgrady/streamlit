@@ -1241,7 +1241,17 @@ export class Dashboard extends Component {
           <div className="col-md-8 grid-margin stretch-card">
             <div className="card">
               <div className="card-body">
-                <StreamlitView />
+                <StreamlitView
+                  componentMapper={{
+                    heading: ({ value }) => {
+                      return (
+                        <h3 style={{ fontSize: "100px", fontStyle: "italic" }}>
+                          {value}
+                        </h3>
+                      )
+                    },
+                  }}
+                />
               </div>
             </div>
           </div>
