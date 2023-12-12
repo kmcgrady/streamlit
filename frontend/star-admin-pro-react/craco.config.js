@@ -24,5 +24,9 @@ module.exports = {
         }),
       ],
     },
+    configure: webpackConfig => {
+      webpackConfig.optimization.minimize = false
+      return webpackConfig
+    },
   },
 }
