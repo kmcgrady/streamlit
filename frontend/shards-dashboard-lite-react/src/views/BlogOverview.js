@@ -14,30 +14,54 @@
  * limitations under the License.
  */
 
-import React from "react"
 import PropTypes from "prop-types"
-import { Container, Row, Col } from "shards-react"
+import React from "react"
+import { Col, Container, Row } from "shards-react"
 
-import PageTitle from "./../components/common/PageTitle"
-import SmallStats from "./../components/common/SmallStats"
-import UsersOverview from "./../components/blog/UsersOverview"
-import UsersByDevice from "./../components/blog/UsersByDevice"
-import NewDraft from "./../components/blog/NewDraft"
+import { StreamlitView } from "@streamlit/lib"
 import Discussions from "./../components/blog/Discussions"
+import NewDraft from "./../components/blog/NewDraft"
+import UsersByDevice from "./../components/blog/UsersByDevice"
+import UsersOverview from "./../components/blog/UsersOverview"
+import SmallStats from "./../components/common/SmallStats"
 import TopReferrals from "./../components/common/TopReferrals"
+
+const StreamlitCard = ({ namespace }) => (
+  <div className="card card-small">
+    <div className="card-body">
+      <StreamlitView namespace={namespace} />
+    </div>
+  </div>
+)
 
 const BlogOverview = ({ smallStats }) => (
   <Container fluid className="main-content-container px-4">
     {/* Page Header */}
     <Row noGutters className="page-header py-4">
-      <PageTitle
-        title="Blog Overview"
-        subtitle="Dashboard"
-        className="text-sm-left mb-3"
-      />
+      <Col sm="12">
+        <StreamlitView style={{ width: "100%", height: "100%" }} />
+      </Col>
     </Row>
 
-    {/* Small Stats Blocks */}
+    {/* Add a row containing 3 columns */}
+    <Row>
+      <Col lg="4" md="4" sm="4" className="mb-4">
+        <StreamlitCard namespace="col1" />
+      </Col>
+      <Col lg="4" md="4" sm="4" className="mb-4">
+        <StreamlitCard namespace="col2" />
+      </Col>
+      <Col lg="4" md="4" sm="4" className="mb-4">
+        <StreamlitCard namespace="col3" />
+      </Col>
+    </Row>
+
+    <Row>
+      <Col lg="12" md="12" sm="12" className="mb-4">
+        <StreamlitCard namespace="row2" />
+      </Col>
+    </Row>
+
     <Row>
       {smallStats.map((stats, idx) => (
         <Col className="col-lg mb-4" key={idx} {...stats.attrs}>

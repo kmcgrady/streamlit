@@ -15,5 +15,6 @@
  */
 
 import DefaultLayout from "./Default"
+import ThreeOneLayout from "./ThreeOneLayout"
 
-export { DefaultLayout }
+export { DefaultLayout, ThreeOneLayout }

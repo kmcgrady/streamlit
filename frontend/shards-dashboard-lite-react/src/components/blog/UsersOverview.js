@@ -14,12 +14,10 @@
  * limitations under the License.
  */
 
-import React from "react"
 import PropTypes from "prop-types"
-import { Row, Col, Card, CardHeader, CardBody, Button } from "shards-react"
+import React from "react"
+import { Card, CardBody, CardHeader, Row } from "shards-react"
 
-import RangeDatePicker from "../common/RangeDatePicker"
-import Chart from "../../utils/chart"
 import { StreamlitView } from "@streamlit/lib"
 
 class UsersOverview extends React.Component {
@@ -85,21 +83,9 @@ class UsersOverview extends React.Component {
       ...this.props.chartOptions,
     }
 
-    const BlogUsersOverview = new Chart(this.canvasRef.current, {
-      type: "LineWithLine",
-      data: this.props.chartData,
-      options: chartOptions,
-    })
-
     // They can still be triggered on hover.
-    const buoMeta = BlogUsersOverview.getDatasetMeta(0)
-    buoMeta.data[0]._model.radius = 0
-    buoMeta.data[
-      this.props.chartData.datasets[0].data.length - 1
-    ]._model.radius = 0
-
     // Render the chart.
-    BlogUsersOverview.render()
+    //BlogUsersOverview.render()
   }
 
   render() {
@@ -111,19 +97,7 @@ class UsersOverview extends React.Component {
         </CardHeader>
         <CardBody className="pt-0">
           <StreamlitView />
-          <Row className="border-bottom py-2 bg-light">
-            <Col sm="6" className="d-flex mb-2 mb-sm-0">
-              <RangeDatePicker />
-            </Col>
-            <Col>
-              <Button
-                size="sm"
-                className="d-flex btn-white ml-auto mr-auto ml-sm-auto mr-sm-0 mt-3 mt-sm-0"
-              >
-                View Full Report &rarr;
-              </Button>
-            </Col>
-          </Row>
+          <Row className="border-bottom py-2 bg-light"></Row>
           <canvas
             height="120"
             ref={this.canvasRef}
