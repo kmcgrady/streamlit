@@ -14,31 +14,31 @@
  * limitations under the License.
  */
 
-import React, { ReactElement, useEffect, useMemo, useRef } from "react"
 import { useTheme } from "@emotion/react"
+import React, { ReactElement, useEffect, useMemo, useRef } from "react"
 
-import { Block as BlockProto } from "@streamlit/lib/src/proto"
-import { BlockNode, AppNode, ElementNode } from "@streamlit/lib/src/AppNode"
-import { getElementWidgetID } from "@streamlit/lib/src/util/utils"
-import { Form } from "@streamlit/lib/src/components/widgets/Form"
-import Tabs, { TabProps } from "@streamlit/lib/src/components/elements/Tabs"
+import { AppNode, BlockNode, ElementNode } from "@streamlit/lib/src/AppNode"
 import ChatMessage from "@streamlit/lib/src/components/elements/ChatMessage"
 import Expander from "@streamlit/lib/src/components/elements/Expander"
+import Tabs, { TabProps } from "@streamlit/lib/src/components/elements/Tabs"
+import { Form } from "@streamlit/lib/src/components/widgets/Form"
+import { Block as BlockProto } from "@streamlit/lib/src/proto"
+import { getElementWidgetID } from "@streamlit/lib/src/util/utils"
 
+import ElementNodeRenderer from "./ElementNodeRenderer"
 import {
   BaseBlockProps,
+  assignDividerColor,
   isComponentStale,
   shouldComponentBeEnabled,
-  assignDividerColor,
 } from "./utils"
-import ElementNodeRenderer from "./ElementNodeRenderer"
 
 import {
   StyledColumn,
   StyledHorizontalBlock,
   StyledVerticalBlock,
-  StyledVerticalBlockWrapper,
   StyledVerticalBlockBorderWrapper,
+  StyledVerticalBlockWrapper,
 } from "./styled-components"
 
 export interface BlockPropsWithoutWidth extends BaseBlockProps {
@@ -185,9 +185,14 @@ const VerticalBlock = (props: BlockPropsWithoutWidth): ReactElement => {
   const observer = useMemo(
     () =>
       new ResizeObserver(([entry]) => {
-        // We need to determine the available width here to be able to set
-        // an explicit width for the `StyledVerticalBlock`.
-        setWidth(entry.target.getBoundingClientRect().width)
+        // Since the setWidth will perform changes to the DOM,
+        // we need wrap it in a requestAnimationFrame to avoid this error:
+        // ResizeObserver loop completed with undelivered notifications.
+        window.requestAnimationFrame(() => {
+          // We need to determine the available width here to be able to set
+          // an explicit width for the `StyledVerticalBlock`.
+          setWidth(entry.target.getBoundingClientRect().width)
+        })
       }),
     [setWidth]
   )

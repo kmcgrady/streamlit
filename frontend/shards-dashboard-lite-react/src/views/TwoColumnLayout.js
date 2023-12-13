@@ -21,7 +21,7 @@ import { Col, Container, Row } from "shards-react"
 import { StreamlitView } from "@streamlit/lib"
 import StreamlitCard from "../components/streamlit/StreamlitComponents"
 
-const BlogOverview = ({ smallStats }) => (
+const TwoColumnLayout = ({ smallStats }) => (
   <Container fluid className="main-content-container px-4">
     {/* Page Header */}
     <Row noGutters className="page-header py-4">
@@ -29,35 +29,31 @@ const BlogOverview = ({ smallStats }) => (
         <StreamlitView style={{ width: "100%", height: "100%" }} />
       </Col>
     </Row>
-
-    {/* Add a row containing 3 columns */}
-    <Row>
-      <Col lg="4" md="4" sm="4" className="mb-4">
-        <StreamlitCard namespace="col1" />
-      </Col>
-      <Col lg="4" md="4" sm="4" className="mb-4">
-        <StreamlitCard namespace="col2" />
-      </Col>
-      <Col lg="4" md="4" sm="4" className="mb-4">
-        <StreamlitCard namespace="col3" />
-      </Col>
-    </Row>
-
-    <Row>
-      <Col lg="12" md="12" sm="12" className="mb-4">
-        <StreamlitCard namespace="row2" />
-      </Col>
-    </Row>
+    {/* Make 3 rows each with 2 columns */}
+    {[1, 2, 3].map(i => (
+      <>
+        <Row className="mb-4 ml-4">
+          <StreamlitView namespace={`row_${i}_title`} />
+        </Row>
+        <Row key={i}>
+          {[1, 2].map(j => (
+            <Col lg="6" md="6" sm="6" className="mb-4" key={j}>
+              <StreamlitCard namespace={`row_${i}_${j}`} />
+            </Col>
+          ))}
+        </Row>
+      </>
+    ))}
   </Container>
 )
 
-BlogOverview.propTypes = {
+TwoColumnLayout.propTypes = {
   /**
    * The small stats dataset.
    */
   smallStats: PropTypes.array,
 }
 
-BlogOverview.defaultProps = {}
+TwoColumnLayout.defaultProps = {}
 
-export default BlogOverview
+export default TwoColumnLayout

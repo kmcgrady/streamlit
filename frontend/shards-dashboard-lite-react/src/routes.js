@@ -20,17 +20,35 @@ import { DefaultLayout } from "./layouts"
 // Route Views
 import BlogOverview from "./views/BlogOverview"
 import ComponentsOverview from "./views/ComponentsOverview"
+import TwoColumnLayout from "./views/TwoColumnLayout"
 
 export default [
   {
     path: "/",
+    exact: true,
     layout: DefaultLayout,
     component: BlogOverview,
+  },
+  {
+    path: "/Home",
+    exact: true,
+    layout: DefaultLayout,
+    component: BlogOverview,
+  },
+  {
+    path: "/Core_Metrics",
+    layout: DefaultLayout,
+    component: TwoColumnLayout,
   },
   {
     path: "/Community_Cloud_Q3_Focus",
     layout: DefaultLayout,
     component: ComponentsOverview,
+  },
+  {
+    path: "/LLM_Cloud_Apps",
+    layout: DefaultLayout,
+    component: BlogOverview,
   },
   // {
   //   path: "/blog-overview",
