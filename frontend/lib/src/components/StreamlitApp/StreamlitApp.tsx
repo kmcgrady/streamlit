@@ -130,18 +130,9 @@ export function StreamlitApp({
       widgetStates?: WidgetStates,
       requestedPageScriptHash?: string
     ): void => {
-      const { requestScriptRerun, scriptRunState } = scriptRun
-      if (
-        scriptRunState === ScriptRunState.RUNNING ||
-        scriptRunState === ScriptRunState.RERUN_REQUESTED ||
-        workingEndpoint === null
-      ) {
-        // Don't queue up multiple rerunScript requests
+      if (workingEndpoint === null) {
         return
       }
-
-      requestScriptRerun()
-
       // Note: `rerunScript` is incorrectly called in some places.
       // We can remove `=== true` after adding type information
       // if (alwaysRunOnSave === true) {
@@ -188,6 +179,18 @@ export function StreamlitApp({
     }
     return {
       rerunScript: () => {
+        const { scriptRunState, requestScriptRerun } = scriptRun
+        if (
+          scriptRunState === ScriptRunState.RUNNING ||
+          scriptRunState === ScriptRunState.RERUN_REQUESTED ||
+          workingEndpoint === null
+        ) {
+          // Don't queue up multiple rerunScript requests
+          return
+        }
+
+        requestScriptRerun()
+
         sendRerunBackMessage(widgetManager.createWidgetStatesMsg())
       },
       clearCache: () => {
