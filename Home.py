@@ -23,7 +23,7 @@ This app tracks a variety of metrics analyses that we use to track the health of
 Streamlit Core products and teams.
 """
 
-with st.ns.col1:
+with st.ns.row_1_1:
     st.subheader("Open Source")
     st.write(
         "The original free Python library which lets you create beautiful data apps"
@@ -31,7 +31,7 @@ with st.ns.col1:
     st.button("Q3 Focus", use_container_width=True)
     st.button("North Star", use_container_width=True)
 
-with st.ns.col2:
+with st.ns.row_1_2:
     st.subheader("Community Cloud")
     st.write(
         "A place for developers to deploy and share their apps with the world for free"
@@ -39,7 +39,7 @@ with st.ns.col2:
     st.button("Q3 Focus", use_container_width=True, key="cc_q3_focus")
     st.button("North Star", use_container_width=True, key="cc_north_star")
 
-with st.ns.col3:
+with st.ns.row_1_3:
     st.subheader("Ecosystem Growth")
     st.write(
         "A paid version of Streamlit that includes features for enterprise use cases"
@@ -47,7 +47,7 @@ with st.ns.col3:
     st.button("Q3 Focus", use_container_width=True, key="eg_q3_focus")
     st.button("North Star", use_container_width=True, key="eg_north_star")
 
-with st.ns.row2:
+with st.ns.row_2_1:
     st.info("Check out some of our newest apps")
 
     col1, col2, col3 = st.columns(3)

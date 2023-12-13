@@ -97,11 +97,7 @@ with st.ns.row_3_1:
         plotly_time_series(
             df,
             x="record_date",
-            y=[
-                "devs_1dau",
-                "devs_7dau",
-                "devs_28dau",
-            ],
+            y=["devs_7dau"],
         )
 
     with data:
@@ -119,7 +115,7 @@ with st.ns.row_3_2:
         plotly_time_series(
             df,
             x="record_date",
-            y=["devs_28dau"],
+            y=["devs_1dau"],
         )
 
     with data:

@@ -21,7 +21,7 @@ import { Col, Container, Row } from "shards-react"
 import { StreamlitView } from "@streamlit/lib"
 import StreamlitCard from "../components/streamlit/StreamlitComponents"
 
-const TwoColumnLayout = ({ layout = [2, 2, 2] }) => (
+const ColumnLayout = ({ layout = [2, 2, 2] }) => (
   <Container fluid className="main-content-container px-4">
     {/* Page Header */}
     <Row noGutters className="page-header py-4">
@@ -53,13 +53,13 @@ const TwoColumnLayout = ({ layout = [2, 2, 2] }) => (
   </Container>
 )
 
-TwoColumnLayout.propTypes = {
+ColumnLayout.propTypes = {
   /**
    * The small stats dataset.
    */
   smallStats: PropTypes.array,
 }
 
-TwoColumnLayout.defaultProps = {}
+ColumnLayout.defaultProps = {}
 
-export default TwoColumnLayout
+export default ColumnLayout

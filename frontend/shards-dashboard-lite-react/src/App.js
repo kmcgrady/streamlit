@@ -15,11 +15,11 @@
  */
 
 import React from "react"
-import { BrowserRouter as Router, Route } from "react-router-dom"
+import { Route, BrowserRouter as Router } from "react-router-dom"
 
+import { StreamlitApp } from "@streamlit/lib"
 import routes from "./routes"
 import withTracker from "./withTracker"
-import { StreamlitApp } from "@streamlit/lib"
 
 import "bootstrap/dist/css/bootstrap.min.css"
 import "./shards-dashboard/styles/shards-dashboards.1.1.0.min.css"
@@ -40,7 +40,11 @@ export default () => {
                 component={withTracker(props => {
                   return (
                     <route.layout {...props}>
-                      <route.component {...props} />
+                      <route.component
+                        {...props}
+                        {...route.customProps}
+                        key={route.path}
+                      />
                     </route.layout>
                   )
                 })}
