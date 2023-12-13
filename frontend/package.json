@@ -5,13 +5,16 @@
   "workspaces": [
     "app",
     "lib",
-    "star-admin-pro-react"
+    "star-admin-pro-react",
+    "shards-dashboard-lite-react"
   ],
   "scripts": {
     "start": "yarn workspace @streamlit/app start",
     "start-star": "yarn workspace star-admin-pro-react start",
+    "start-shard": "yarn workspace shards-dashboard-lite-react start",
     "build": "yarn workspace @streamlit/lib build && yarn workspace @streamlit/app build",
     "build-star": "yarn workspace star-admin-pro-react build",
+    "build-shard": "yarn workspace shards-dashboard-lite-react build",
     "build-single-chunk-star": "yarn workspace star-admin-pro-react build-single-chunk",
     "buildFast": "yarn buildLib && yarn workspace @streamlit/app buildFast",
     "buildLib": "yarn workspace @streamlit/lib build",
