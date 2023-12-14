@@ -75,7 +75,7 @@ class DummyEndpoints implements StreamlitEndpoints {
 }
 
 export interface StreamlitViewProps {
-  namespace: string
+  namespace?: string
 }
 
 export function StreamlitView({

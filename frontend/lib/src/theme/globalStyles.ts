@@ -33,7 +33,6 @@ export const globalStyles = (theme: EmotionTheme): SerializedStyles => css`
   a:hover,
   a:active {
     color: ${theme.colors.primary};
-    text-decoration: underline;
   }
 
   iframe {
@@ -332,7 +331,6 @@ export const globalStyles = (theme: EmotionTheme): SerializedStyles => css`
 
   a {
     color: ${theme.colors.primary};
-    text-decoration: underline;
 
     &:hover {
       color: ${darken(theme.colors.primary, 0.15)};

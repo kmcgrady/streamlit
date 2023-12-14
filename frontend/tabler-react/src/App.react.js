@@ -52,7 +52,21 @@ function App(props) {
       <StreamlitApp endpoint={initialUrl}>
         <Router>
           <Switch>
-            <Route component={HomePage} />
+            <Route
+              exact
+              path={["/", "/Home"]}
+              component={() => <HomePage layout={[3, 1]} />}
+            />
+            <Route
+              exact
+              path="/Core_Metrics"
+              component={() => <HomePage layout={[2, 2, 2]} />}
+            />
+            <Route
+              exact
+              path="/Community_Cloud_Q3_Focus"
+              component={() => <HomePage layout={[1, 2, 2, 1, 1]} />}
+            />
           </Switch>
         </Router>
       </StreamlitApp>
