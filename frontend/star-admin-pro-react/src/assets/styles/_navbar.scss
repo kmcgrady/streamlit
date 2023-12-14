@@ -38,7 +38,8 @@
     padding-right: 15px;
     width: calc(100% - #{$sidebar-width-lg});
     height: $navbar-height;
-    background: $navbar-bg;
+    // background: $navbar-bg;
+    background: rgba(64, 140, 255, 1);
     @media (max-width: 991px) {
       width: 100%;
       padding-left: 11px;
@@ -46,7 +47,8 @@
 
     .navbar-toggler {
       border: 0;
-      color: $navbar-menu-color;
+      // color: $navbar-menu-color;
+      color: white;
       margin-right: 0;
       &:not(.navbar-toggler-right) {
         @media (max-width: 991px) {
@@ -55,13 +57,18 @@
       }
     }
     .search-form {
-      width: 35%;
+      // width: 45%;
+      flex-grow: 1;
       margin-right: 30px;
       @media (max-width: 1024px) {
         width: 22%;
       }
       .form-control {
         height: 32px;
+
+        ::placeholder {
+          color: white !important;
+        }
       }
 
       .form-group {
@@ -91,7 +98,7 @@
           font-size: $navbar-font-size;
           i {
             font-size: $navbar-icon-font-size;
-            color: $navbar-menu-color;
+            color: white;
           }
           .nav-profile-img {
             height: 34px;
@@ -115,6 +122,7 @@
         }
         .dropdown {
           .dropdown-toggle {
+            color: white;
             padding: 0;
             font-weight: normal;
             &:after {

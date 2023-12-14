@@ -53,6 +53,7 @@ class Navbar extends Component {
                 type="search"
                 className="form-control"
                 placeholder="Search Here"
+                style={{ border: "none", background: "transparent" }}
               />
             </div>
           </form>

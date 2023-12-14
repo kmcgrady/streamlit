@@ -190,8 +190,8 @@ function SiteWrapper(props) {
     <Site.Wrapper
       headerProps={{
         href: "/",
-        alt: "Tabler React",
-        imageURL: "./demo/brand/tabler.svg",
+        alt: "Streamlit",
+        imageURL: "./demo/brand/st-logo.svg",
         navItems: (
           <Nav.Item type="div" className="d-none d-md-flex">
             <Button

@@ -21,6 +21,10 @@ import { Trans } from "react-i18next"
 import { Link, withRouter } from "react-router-dom"
 import mini_logo from "../../assets/images/logo-mini.svg"
 import logo from "../../assets/images/logo.svg"
+import file from "../../assets/images/file.svg"
+import homepage from "../../assets/images/home.svg"
+import activeFile from "../../assets/images/active-file.png"
+import activeHomepage from "../../assets/images/active-home.png"
 
 function Sidebar({ location }) {
   const [state, setState] = useState({})
@@ -96,17 +100,21 @@ function Sidebar({ location }) {
   })
 
   return (
-    <nav className="sidebar sidebar-offcanvas" id="sidebar">
-      <div className="text-center sidebar-brand-wrapper d-flex align-items-center">
+    <nav
+      className="sidebar sidebar-offcanvas"
+      id="sidebar"
+      style={{ background: "#FFFFFF" }}
+    >
+      {/* <div className="text-center sidebar-brand-wrapper d-flex align-items-center">
         <a className="sidebar-brand brand-logo" href="index.html">
           <img src={logo} alt="logo" />
         </a>
         <a className="sidebar-brand brand-logo-mini pt-3" href="index.html">
           <img src={mini_logo} alt="logo" />
         </a>
-      </div>
-      <ul className="nav">
-        <li className="nav-item nav-profile not-navigation-link">
+      </div> */}
+      <ul className="nav" style={{ padding: "32px 0px 24px 0px" }}>
+        {/* <li className="nav-item nav-profile not-navigation-link">
           <div className="nav-link">
             <Dropdown>
               <Dropdown.Toggle className="nav-link user-switch-dropdown-toggler p-0 toggle-arrow-hide bg-transparent border-0 w-100">
@@ -170,15 +178,33 @@ function Sidebar({ location }) {
               </Dropdown.Menu>
             </Dropdown>
           </div>
-        </li>
+        </li> */}
         {appPages.map((page, index) => {
+          const activePage = isPathActive(`/${page.pageName}`)
+          const home = page.pageName === "Home"
+          const defaultPage = location.pathname === "/" && home
+          let src = file
+          if (activePage && home) {
+            src = activeHomepage
+          } else if (home && defaultPage) {
+            src = activeHomepage
+          } else if (home && !activePage) {
+            src = homepage
+          } else if (activePage && !home) {
+            src = activeFile
+          }
           return (
             <li
               key={page.pageScriptHash}
               className={
-                isPathActive(`/${page.pageName}`)
+                isPathActive(`/${page.pageName}`) || defaultPage
                   ? "nav-item active"
                   : "nav-item"
+              }
+              style={
+                isPathActive(`/${page.pageName}`) || defaultPage
+                  ? { background: "#FAFAFA" }
+                  : {}
               }
             >
               <Link
@@ -187,9 +213,18 @@ function Sidebar({ location }) {
                 onClick={() => {
                   changePage(page.pageScriptHash)
                 }}
+                style={{
+                  fontSize: "16px",
+                  textDecoration: "none",
+                  paddingLeft: "30px",
+                }}
               >
-                <i className="mdi mdi-television menu-icon"></i>
-                <span className="menu-title">
+                <img
+                  src={src}
+                  style={{ marginRight: "8px", width: "20px", height: "20px" }}
+                />
+                {/* <i className="mdi mdi-television menu-icon"></i> */}
+                <span className="menu-title" style={{ fontWeight: 400 }}>
                   <Trans>{page.pageName.replace(/_/g, " ")}</Trans>
                 </span>
               </Link>

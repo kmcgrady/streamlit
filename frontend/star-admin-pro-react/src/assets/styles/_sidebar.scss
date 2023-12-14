@@ -84,7 +84,8 @@
           .nav-link {
             padding: 10px 0px 10px 70px;
             position: relative;
-            color: rgba($sidebar-light-menu-color, 0.8);
+            // color: rgba($sidebar-light-menu-color, 0.8);
+            color: "#1A6CE7";
             font-size: calc(#{$sidebar-menu-font-size} - 2px);
             font-weight: 500;
             transition-duration: 0.5s;
@@ -143,7 +144,7 @@
         display: flex;
         padding: $sidebar-menu-padding;
         white-space: nowrap;
-        color: $sidebar-light-menu-color;
+        color: #808495;
 
         .rtl & {
           padding: $sidebar-menu-padding-rtl;
@@ -212,11 +213,14 @@
 
       &.active {
         >.nav-link {
-          color: $sidebar-light-menu-active-color;
+          // background: #FAFAFA;
+
+          // color: $sidebar-light-menu-active-color;
 
           .menu-title,
           i {
-            color: inherit;
+            // color: inherit;
+            color: #1A6CE7;
           }
         }
       }
@@ -288,15 +292,15 @@
         position: relative;
 
         &:before {
-          content: "";
-          position: absolute;
-          left: 30px;
-          right: 50%;
-          width: 10px;
-          height: 10px;
-          border-radius: 100%;
-          border: 2px solid $sidebar-nav-item-dot-color;
-          display: block;
+          // content: "";
+          // position: absolute;
+          // left: 30px;
+          // right: 50%;
+          // width: 10px;
+          // height: 10px;
+          // border-radius: 100%;
+          // border: 2px solid $sidebar-nav-item-dot-color;
+          // display: block;
 
           .rtl & {
             left: auto;
@@ -318,7 +322,8 @@
         &:hover {
           &:not(.nav-profile):not(.hover-open) {
             >.nav-link:not([aria-expanded="true"]) {
-              background: $sidebar-light-menu-hover-bg;
+              // background: $sidebar-light-menu-hover-bg;
+              background: #FAFAFA;
               padding-left: 65px;
 
               .rtl & {
@@ -331,7 +336,8 @@
               }
 
               .menu-title {
-                color: $sidebar-light-menu-hover-color;
+                // color: $sidebar-light-menu-hover-color;
+                color: #1A6CE7;
               }
 
               .menu-arrow {
