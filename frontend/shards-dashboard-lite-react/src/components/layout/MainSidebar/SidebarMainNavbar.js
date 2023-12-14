@@ -14,11 +14,13 @@
  * limitations under the License.
  */
 
-import React from "react"
 import PropTypes from "prop-types"
+import React from "react"
 import { Navbar, NavbarBrand } from "shards-react"
+//import logo from '../../../images/shards-dashboards-logo.svg'
+import logo from "../../../images/streamlit-logo.svg"
 
-import { Dispatcher, Constants } from "../../../flux"
+import { Constants, Dispatcher } from "../../../flux"
 
 class SidebarMainNavbar extends React.Component {
   constructor(props) {
@@ -42,21 +44,33 @@ class SidebarMainNavbar extends React.Component {
           type="light"
         >
           <NavbarBrand
-            className="w-100 mr-0"
+            // className="w-100 mr-0"
             href="#"
-            style={{ lineHeight: "25px" }}
+            style={{
+              textDecoration: "none",
+              lineHeight: "25px",
+              paddingLeft: "16px",
+            }}
           >
-            <div className="d-table m-auto">
+            <div className="d-table m-auto text-left" style={{}}>
               <img
                 id="main-logo"
                 className="d-inline-block align-top mr-1"
-                style={{ maxWidth: "25px" }}
-                src={require("../../../images/shards-dashboards-logo.svg")}
-                alt="Shards Dashboard"
+                style={{ width: "36px", height: "24px" }}
+                // src={require("../../../images/shards-dashboards-logo.svg")}
+                src={logo}
+                alt="Streamlit Dashboard"
               />
               {!hideLogoText && (
-                <span className="d-none d-md-inline ml-1">
-                  Shards Dashboard
+                <span
+                  className="d-none d-md-inline ml-1"
+                  style={{
+                    fontWeight: "300",
+                    fontSize: "1.5rem",
+                    color: "black",
+                  }}
+                >
+                  Streamlit
                 </span>
               )}
             </div>

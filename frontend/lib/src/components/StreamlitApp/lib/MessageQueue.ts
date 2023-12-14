@@ -119,6 +119,7 @@ export class MessageQueue {
       forwardMsg,
       msg
     )
+
     this.messageQueue.push(newForwardMsg)
 
     // PerformanceEvents.record({ name: "GotCachedPayload", messageIndex });

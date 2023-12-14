@@ -14,7 +14,14 @@
  * limitations under the License.
  */
 
-import DefaultLayout from "./Default"
-import ThreeOneLayout from "./ThreeOneLayout"
+import { StreamlitView } from "@streamlit/lib"
 
-export { DefaultLayout, ThreeOneLayout }
+const StreamlitCard = ({ namespace }) => (
+  <div className="card card-small">
+    <div className="card-body">
+      <StreamlitView namespace={namespace} />
+    </div>
+  </div>
+)
+
+export default StreamlitCard

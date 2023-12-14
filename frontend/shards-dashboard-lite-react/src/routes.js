@@ -14,24 +14,50 @@
  * limitations under the License.
  */
 
-import React from "react"
-import { Redirect } from "react-router-dom"
-
 // Layout Types
 import { DefaultLayout } from "./layouts"
 
 // Route Views
 import BlogOverview from "./views/BlogOverview"
-import UserProfileLite from "./views/UserProfileLite"
-import AddNewPost from "./views/AddNewPost"
-import Errors from "./views/Errors"
-import ComponentsOverview from "./views/ComponentsOverview"
-import Tables from "./views/Tables"
-import BlogPosts from "./views/BlogPosts"
+import ColumnLayout from "./views/ColumnLayout"
 
 export default [
   {
     path: "/",
+    exact: true,
+    layout: DefaultLayout,
+    component: ColumnLayout,
+    customProps: {
+      layout: [3, 1],
+    },
+  },
+  {
+    path: "/Home",
+    exact: true,
+    layout: DefaultLayout,
+    component: ColumnLayout,
+    customProps: {
+      layout: [3, 1],
+    },
+  },
+  {
+    path: "/Core_Metrics",
+    layout: DefaultLayout,
+    component: ColumnLayout,
+    customProps: {
+      layout: [2, 2, 2],
+    },
+  },
+  {
+    path: "/Community_Cloud_Q3_Focus",
+    layout: DefaultLayout,
+    component: ColumnLayout,
+    customProps: {
+      layout: [1, 2, 2, 1, 1],
+    },
+  },
+  {
+    path: "/LLM_Cloud_Apps",
     layout: DefaultLayout,
     component: BlogOverview,
   },
