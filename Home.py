@@ -23,6 +23,9 @@ This app tracks a variety of metrics analyses that we use to track the health of
 Streamlit Core products and teams.
 """
 
+with st.ns.banner:
+    st.write("Note: this app was last updated on 2023-12-14")
+
 with st.ns.row_1_1:
     st.subheader("Open Source")
     st.write(

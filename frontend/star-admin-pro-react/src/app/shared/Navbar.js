@@ -46,70 +46,7 @@ class Navbar extends Component {
           >
             <i className="mdi mdi-menu"></i>
           </button>
-          <ul className="navbar-nav navbar-nav-left header-links align-self-center">
-            <li className="nav-item font-weight-semibold d-none  d-md-flex">
-              Help : +050 2992 709
-            </li>
-            <li className="nav-item dropdown language-dropdown">
-              <Dropdown>
-                <Dropdown.Toggle className="nav-link count-indicator p-0 toggle-arrow-hide bg-transparent">
-                  <div className="d-inline-flex mr-0 mr-md-3">
-                    <div className="flag-icon-holder">
-                      <i className="flag-icon flag-icon-us"></i>
-                    </div>
-                  </div>
-                  <span className="profile-text font-weight-medium d-none d-md-block">
-                    English
-                  </span>
-                </Dropdown.Toggle>
-                <Dropdown.Menu className="navbar-dropdown preview-list">
-                  <Dropdown.Item
-                    className="dropdown-item  d-flex align-items-center"
-                    href="!#"
-                    onClick={evt => evt.preventDefault()}
-                  >
-                    <div className="flag-icon-holder">
-                      <i className="flag-icon flag-icon-us"></i>
-                    </div>
-                    English
-                  </Dropdown.Item>
-                  <div className="dropdown-divider"></div>
-                  <Dropdown.Item
-                    className="dropdown-item preview-item d-flex align-items-center"
-                    href="!#"
-                    onClick={evt => evt.preventDefault()}
-                  >
-                    <div className="flag-icon-holder">
-                      <i className="flag-icon flag-icon-fr"></i>
-                    </div>
-                    French
-                  </Dropdown.Item>
-                  <div className="dropdown-divider"></div>
-                  <Dropdown.Item
-                    className="dropdown-item preview-item d-flex align-items-center"
-                    href="!#"
-                    onClick={evt => evt.preventDefault()}
-                  >
-                    <div className="flag-icon-holder">
-                      <i className="flag-icon flag-icon-ae"></i>
-                    </div>
-                    Arabic
-                  </Dropdown.Item>
-                  <div className="dropdown-divider"></div>
-                  <Dropdown.Item
-                    className="dropdown-item preview-item d-flex align-items-center"
-                    href="!#"
-                    onClick={evt => evt.preventDefault()}
-                  >
-                    <div className="flag-icon-holder">
-                      <i className="flag-icon flag-icon-ru"></i>
-                    </div>
-                    Russian
-                  </Dropdown.Item>
-                </Dropdown.Menu>
-              </Dropdown>
-            </li>
-          </ul>
+          <ul className="navbar-nav navbar-nav-left header-links align-self-center"></ul>
           <form className="ml-auto search-form d-none d-md-block" action="#">
             <div className="form-group">
               <input
