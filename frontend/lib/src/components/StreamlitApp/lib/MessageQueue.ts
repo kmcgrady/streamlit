@@ -114,9 +114,12 @@ export class MessageQueue {
     }
 
     const forwardMsg = ForwardMsg.decode(msg)
-    this.messageQueue.push(forwardMsg)
 
-    await this.forwardMessageCache.processMessagePayload(forwardMsg, msg)
+    const newForwardMsg = await this.forwardMessageCache.processMessagePayload(
+      forwardMsg,
+      msg
+    )
+    this.messageQueue.push(newForwardMsg)
 
     // PerformanceEvents.record({ name: "GotCachedPayload", messageIndex });
     // Dispatch any pending messages in the queue. This may *not* result
