@@ -173,7 +173,7 @@ function SiteWrapper(props) {
   const navBarItems = appPages.map(page => ({
     value: page.pageName.replace(/_/g, " "),
     to: `/${page.pageName}`,
-    icon: "home",
+    icon: "file",
     LinkComponent: withRouter(NavLink),
     useExact: true,
     onClick: () => {
@@ -236,7 +236,23 @@ function SiteWrapper(props) {
         },
         accountDropdown: accountDropdownProps,
       }}
-      navProps={{ itemsObjects: navBarItems }}
+      navProps={{
+        items: navBarItems.map((a, i) => {
+          return (
+            <Nav.Item
+              key={i}
+              icon={a.icon}
+              value={a.value}
+              to={a.to}
+              hasSubNav={!!a.subItems}
+              LinkComponent={a.LinkComponent}
+              subItemsObjects={a.subItems}
+              useExact={a.useExact}
+              onClick={a.onClick}
+            />
+          )
+        }),
+      }}
       routerContextComponentType={withRouter(RouterContextProvider)}
       footerProps={{
         links: [

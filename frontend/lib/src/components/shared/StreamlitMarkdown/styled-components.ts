@@ -33,6 +33,7 @@ function sharedMarkdownStyle(theme: Theme): any {
   return {
     a: {
       color: theme.colors.linkText,
+      textDecoration: "underline",
     },
   }
 }

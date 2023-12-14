@@ -18,39 +18,50 @@ import PropTypes from "prop-types"
 import React from "react"
 import { Col, Container, Row } from "shards-react"
 
-import { StreamlitView } from "@streamlit/lib"
+import { StreamlitColumnLayout } from "@streamlit/lib"
 import StreamlitCard from "../components/streamlit/StreamlitComponents"
 
 const ColumnLayout = ({ layout = [2, 2, 2] }) => (
-  <Container fluid className="main-content-container px-4">
-    {/* Page Header */}
-    <Row noGutters className="page-header py-4">
-      <Col sm="12">
-        <StreamlitView style={{ width: "100%", height: "100%" }} />
-      </Col>
-    </Row>
-    {/* Make 3 rows each with 2 columns */}
-    {layout.map((numColumns, i) => (
-      <>
-        <Row className="mb-4 ml-4">
-          <StreamlitView namespace={`row_${i + 1}_title`} />
-        </Row>
-        <Row key={i}>
-          {Array.from({ length: numColumns }, (_, j) => (
-            <Col
-              lg={12 / numColumns}
-              md={12 / numColumns}
-              sm={12 / numColumns}
-              className="mb-4"
-              key={j}
-            >
-              <StreamlitCard namespace={`row_${i + 1}_${j + 1}`} />
-            </Col>
-          ))}
-        </Row>
-      </>
-    ))}
-  </Container>
+  <StreamlitColumnLayout
+    layout={layout}
+    containerComponent={({ children }) => (
+      <Container fluid className="main-content-container px-4">
+        {children}
+      </Container>
+    )}
+    rowComponent={({ isTitle, isMain, children }) => {
+      if (isMain) {
+        return (
+          <Row noGutters className="page-header py-4">
+            {children}
+          </Row>
+        )
+      }
+
+      if (isTitle) {
+        return <Row className="mb-4 ml-4">{children}</Row>
+      }
+
+      return <Row>{children}</Row>
+    }}
+    colComponent={({ isMain, numColumns, children }) => {
+      if (isMain) {
+        return <Col sm="12">{children}</Col>
+      }
+
+      return (
+        <Col
+          lg={12 / numColumns}
+          md={12 / numColumns}
+          sm={12 / numColumns}
+          className="mb-4"
+        >
+          {children}
+        </Col>
+      )
+    }}
+    cardComponent={({ namespace }) => <StreamlitCard namespace={namespace} />}
+  />
 )
 
 ColumnLayout.propTypes = {
