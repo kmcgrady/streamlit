@@ -59,6 +59,7 @@ module.exports = {
     "lib/src/proto.d.ts",
     "**/vendor/*",
     "**/node_modules/*",
+    "tabler-react/*",
   ],
   plugins: ["no-relative-import-paths"],
   // Place to specify ESLint rules.
