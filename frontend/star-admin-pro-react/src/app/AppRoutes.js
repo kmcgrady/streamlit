@@ -15,35 +15,41 @@
  */
 
 import React, { Component, Suspense, lazy } from "react"
-import { Switch, Route, Redirect } from "react-router-dom"
+import { Route, Switch } from "react-router-dom"
 
 import Spinner from "../app/shared/Spinner"
 
 const Dashboard = lazy(() => import("./dashboard/Dashboard"))
-
-const Buttons = lazy(() => import("./basic-ui/Buttons"))
-const Dropdowns = lazy(() => import("./basic-ui/Dropdowns"))
-
-const BasicElements = lazy(() => import("./form-elements/BasicElements"))
-
-const BasicTable = lazy(() => import("./tables/BasicTable"))
-
-const Mdi = lazy(() => import("./icons/Mdi"))
-
-const ChartJs = lazy(() => import("./charts/ChartJs"))
-
-const Error404 = lazy(() => import("./error-pages/Error404"))
-const Error500 = lazy(() => import("./error-pages/Error500"))
-
-const Login = lazy(() => import("./user-pages/Login"))
-const Register1 = lazy(() => import("./user-pages/Register"))
 
 class AppRoutes extends Component {
   render() {
     return (
       <Suspense fallback={<Spinner />}>
         <Switch>
-          <Route component={Dashboard} />
+          <Route
+            exact
+            path={["/", "/Home"]}
+            render={props => (
+              <Dashboard {...props} customProps={{ layout: [3, 1] }} />
+            )}
+          />
+          <Route
+            exact
+            path="/Core_Metrics"
+            render={props => (
+              <Dashboard {...props} customProps={{ layout: [2, 2, 2] }} />
+            )}
+          />
+          <Route
+            exact
+            path="/Community_Cloud_Q3_Focus"
+            render={props => (
+              <Dashboard
+                {...props}
+                customProps={{ layout: [1, 2, 2, 1, 1] }}
+              />
+            )}
+          />
         </Switch>
       </Suspense>
     )

@@ -105,21 +105,21 @@ with st.ns.row_4_1:
 with st.ns.row_5_title:
     st.subheader("Errors")
 
-with st.ns.row_6_1:
-    st.write("Drilldown on error rate")
-    select_filter = st.radio(
-        "**Choose Usage From 👇**",
-        ["All", "CreateFromFork", "CreateFromTemplate", "EditInGithubCodespaces"],
-        horizontal=True,
-    )
+with st.ns.row_5_1:
+    with st.expander("Drilldown on error rate", expanded=True):
+        select_filter = st.radio(
+            "**Choose Usage From 👇**",
+            ["All", "CreateFromFork", "CreateFromTemplate", "EditInGithubCodespaces"],
+            horizontal=True,
+        )
 
-    st.info(
-        """Error code 500 means the error is related to the server.
-    Any error codes below 500 are related to user errors.
-    - **500**: Server Error
-    - **403**: Insufficient priviledges
-    - **404**: Could not resolve app eg. the repository does not exist or is private on GitHub
-    - **400**: The repo already exists
-    - **2ST**: Unable to find the repo
-    """
-    )
+        st.info(
+            """Error code 500 means the error is related to the server.
+        Any error codes below 500 are related to user errors.
+        - **500**: Server Error
+        - **403**: Insufficient priviledges
+        - **404**: Could not resolve app eg. the repository does not exist or is private on GitHub
+        - **400**: The repo already exists
+        - **2ST**: Unable to find the repo
+        """
+        )
