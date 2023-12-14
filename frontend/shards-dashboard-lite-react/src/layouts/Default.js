@@ -20,25 +20,34 @@ import { Col, Container, Row } from "shards-react"
 
 import MainSidebar from "../components/layout/MainSidebar/MainSidebar"
 
-const DefaultLayout = ({ children, noNavbar, noFooter }) => (
-  <Container fluid>
-    <Row>
-      <MainSidebar />
-      <Col
-        className="main-content p-0"
-        lg={{ size: 10, offset: 2 }}
-        md={{ size: 9, offset: 3 }}
-        sm="12"
-        tag="main"
-        style={{ marginTop: "5em" }}
-      >
-        {/* {!noNavbar && <MainNavbar />} */}
-        {children}
-        {/* {!noFooter && <MainFooter />} */}
-      </Col>
-    </Row>
-  </Container>
-)
+const DefaultLayout = ({ children, noNavbar, noFooter }) => {
+  function OverrideBodyStyle() {
+    const body = document.getElementsByTagName("body")[0]
+    body.style.backgroundColor = "#F0F2F6"
+  }
+
+  OverrideBodyStyle()
+
+  return (
+    <Container fluid style={{ backgroundColor: "#F0F2F6" }}>
+      <Row>
+        <MainSidebar />
+        <Col
+          className="main-content p-0"
+          lg={{ size: 10, offset: 2 }}
+          md={{ size: 9, offset: 3 }}
+          sm="12"
+          tag="main"
+          style={{ marginTop: "5em" }}
+        >
+          {/* {!noNavbar && <MainNavbar />} */}
+          {children}
+          {/* {!noFooter && <MainFooter />} */}
+        </Col>
+      </Row>
+    </Container>
+  )
+}
 
 DefaultLayout.propTypes = {
   /**

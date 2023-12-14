@@ -19,9 +19,31 @@ import PropTypes from "prop-types"
 import { NavLink as RouteNavLink } from "react-router-dom"
 import { NavItem, NavLink } from "shards-react"
 import { useStreamlitAppCommands } from "@streamlit/lib"
+import file from "./file.svg"
+import homepage from "./home.svg"
+import activeFile from "./active-file.png"
+import activeHomepage from "./active-home.png"
 
 const SidebarNavItem = ({ item }) => {
   const { changePage } = useStreamlitAppCommands()
+
+  const currentPath = window.location.pathname.slice(1)
+
+  let activePage = false
+  let src = file
+  if (currentPath === "" && item.pageName === "Home") {
+    activePage = true
+  } else {
+    activePage = currentPath === item.pageName ? true : false
+  }
+
+  if (item.pageName === "Home" && activePage) {
+    src = activeHomepage
+  } else if (item.pageName !== "Home" && activePage) {
+    src = activeFile
+  } else if (item.pageName === "Home" && !activePage) {
+    src = homepage
+  }
 
   return (
     <NavItem>
@@ -31,6 +53,19 @@ const SidebarNavItem = ({ item }) => {
         onClick={e => {
           changePage(item.pageScriptHash)
         }}
+        style={{
+          fontSize: "16px",
+          lineHeight: "24px",
+          textDecoration: "none",
+          padding: "12px 32px, 12px 24px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "flex-start",
+          gap: "8px",
+          color: activePage ? "#1A6CE7" : "#808495",
+          boxShadow: activePage ? "inset 2px 0 0 #1A6CE7" : "none",
+          background: activePage ? "#FAFAFA" : "none",
+        }}
       >
         {/* {item.htmlBefore && (
           <div
@@ -38,6 +73,7 @@ const SidebarNavItem = ({ item }) => {
             dangerouslySetInnerHTML={{ __html: item.htmlBefore }}
           />
         )} */}
+        <img src={src} className="sidebar-icons" />
         {item.pageName && <span>{item.pageName.replace(/_/g, " ")}</span>}
         {/* {item.htmlAfter && (
           <div
