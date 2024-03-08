@@ -947,7 +947,7 @@ export class App extends PureComponent<Props, State> {
       // a fragment.
       document.title = `${newPageName} · Streamlit`
       handleFavicon(
-        `${process.env.PUBLIC_URL}/favicon.png`,
+        `${import.meta.env.BASE_URL}/favicon.png`,
         this.hostCommunicationMgr.sendMessageToHost,
         this.endpoints
       )

@@ -1,4 +1,14 @@
 {
   "extends": "../tsconfig.dev.json",
-  "include": ["src/*", "../lib/src/declarations.d.ts"]
+  "include": ["src/*", "../lib/src/declarations.d.ts"],
+  "compilerOptions": {
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "target": "ESNext",
+    "types": ["vite/client"],
+    "isolatedModules": true,
+    "paths": {
+      "@streamlit/lib": ["../lib/src"],
+      "@streamlit/app": ["src"]
+    }
+  }
 }

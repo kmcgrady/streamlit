@@ -14,4 +14,4 @@
  * limitations under the License.
  */
 
-/// <reference types="react-scripts" />
+/// <reference types="vite/client" />
