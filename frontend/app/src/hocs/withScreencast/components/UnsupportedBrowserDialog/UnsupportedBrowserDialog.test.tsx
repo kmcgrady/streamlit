@@ -37,7 +37,7 @@ describe("UnsupportedBrowserDialog", () => {
   })
 
   it("should render a header", () => {
-    const onClose = jest.fn()
+    const onClose = vi.fn()
     render(
       <BaseProvider theme={LightTheme}>
         <UnsupportedBrowserDialog onClose={onClose} />

@@ -32,14 +32,14 @@ import ThemeCreatorDialog, {
   toMinimalToml,
 } from "./ThemeCreatorDialog"
 
-const mockSetTheme = jest.fn()
-const mockAddThemes = jest.fn()
+const mockSetTheme = vi.fn()
+const mockAddThemes = vi.fn()
 
 const getProps = (
   props: Partial<ThemeCreatorDialogProps> = {}
 ): ThemeCreatorDialogProps => ({
-  backToSettings: jest.fn(),
-  onClose: jest.fn(),
+  backToSettings: vi.fn(),
+  onClose: vi.fn(),
   ...props,
 })
 
@@ -55,7 +55,7 @@ const getContext = (
 
 Object.assign(navigator, {
   clipboard: {
-    writeText: jest.fn(),
+    writeText: vi.fn(),
   },
 })
 
@@ -162,7 +162,7 @@ font="monospace"
 
 describe("Opened ThemeCreatorDialog", () => {
   afterEach(() => {
-    jest.clearAllMocks()
+    vi.clearAllMocks()
   })
 
   it("should update theme on color change", () => {
@@ -254,8 +254,8 @@ describe("Opened ThemeCreatorDialog", () => {
     // This hack is used below to get around `shallow` not supporting the
     // `useState` hook, and emotion's `useTheme` hook (used by Modal) getting
     // thrown off by us mocking `useContext` above :(
-    const updateCopied = jest.fn()
-    const useStateSpy = jest.spyOn(React, "useState")
+    const updateCopied = vi.fn()
+    const useStateSpy = vi.spyOn(React, "useState")
     // @ts-expect-error
     useStateSpy.mockImplementation(init => [init, updateCopied])
 

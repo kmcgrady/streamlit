@@ -34,7 +34,7 @@ describe("ActionButton", () => {
   ): ActionButtonProps => ({
     label: "the label",
     icon: "star.svg",
-    onClick: jest.fn(),
+    onClick: vi.fn(),
     ...extended,
   })
 
@@ -67,7 +67,7 @@ describe("ToolbarActions", () => {
       { key: "favorite", icon: "star.svg" },
       { key: "share", label: "Share" },
     ],
-    sendMessageToHost: jest.fn(),
+    sendMessageToHost: vi.fn(),
     metricsMgr: new SegmentMetricsManager(mockSessionInfo()),
     ...extended,
   })

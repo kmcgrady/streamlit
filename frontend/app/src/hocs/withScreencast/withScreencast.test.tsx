@@ -20,7 +20,7 @@ import { screen } from "@testing-library/react"
 import { render } from "@streamlit/lib"
 import withScreencast, { ScreenCastHOC, Steps } from "./withScreencast"
 
-jest.mock("@streamlit/app/src/util/ScreenCastRecorder")
+vi.mock("@streamlit/app/src/util/ScreenCastRecorder")
 
 interface TestProps {
   screenCast: ScreenCastHOC

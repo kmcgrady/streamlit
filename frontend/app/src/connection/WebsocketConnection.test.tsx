@@ -57,12 +57,12 @@ function createMockArgs(overrides?: Partial<Args>): Args {
         basePath: "/",
       },
     ],
-    onMessage: jest.fn(),
-    onConnectionStateChange: jest.fn(),
-    onRetry: jest.fn(),
+    onMessage: vi.fn(),
+    onConnectionStateChange: vi.fn(),
+    onRetry: vi.fn(),
     claimHostAuthToken: () => Promise.resolve(undefined),
-    resetHostAuthToken: jest.fn(),
-    onHostConfigResp: jest.fn(),
+    resetHostAuthToken: vi.fn(),
+    onHostConfigResp: vi.fn(),
     ...overrides,
   }
 }
@@ -75,8 +75,8 @@ describe("doInitPings", () => {
     ],
     timeoutMs: 10,
     maxTimeoutMs: 100,
-    retryCallback: jest.fn(),
-    setAllowedOrigins: jest.fn(),
+    retryCallback: vi.fn(),
+    setAllowedOrigins: vi.fn(),
   }
 
   let originalAxiosGet: any
@@ -84,9 +84,9 @@ describe("doInitPings", () => {
 
   beforeEach(() => {
     originalAxiosGet = axios.get
-    axios.get = jest.fn()
-    MOCK_PING_DATA.retryCallback = jest.fn()
-    MOCK_PING_DATA.setAllowedOrigins = jest.fn()
+    axios.get = vi.fn()
+    MOCK_PING_DATA.retryCallback = vi.fn()
+    MOCK_PING_DATA.setAllowedOrigins = vi.fn()
     originalPromiseAll = Promise.all
   })
 
@@ -96,7 +96,7 @@ describe("doInitPings", () => {
   })
 
   it("calls the /_stcore/health endpoint when pinging server", async () => {
-    axios.get = jest.fn().mockImplementation(url => {
+    axios.get = vi.fn().mockImplementation(url => {
       if (url.endsWith("_stcore/health")) {
         return MOCK_HEALTH_RESPONSE
       }
@@ -120,7 +120,7 @@ describe("doInitPings", () => {
   })
 
   it("returns the uri index and sets hostConfig for the first successful ping (0)", async () => {
-    Promise.all = jest
+    Promise.all = vi
       .fn()
       .mockResolvedValueOnce(["", MOCK_HOST_CONFIG_RESPONSE])
 
@@ -138,7 +138,7 @@ describe("doInitPings", () => {
   })
 
   it("returns the uri index and sets hostConfig for the first successful ping (1)", async () => {
-    Promise.all = jest
+    Promise.all = vi
       .fn()
       .mockRejectedValueOnce(new Error(""))
       .mockResolvedValueOnce(["", MOCK_HOST_CONFIG_RESPONSE])
@@ -159,7 +159,7 @@ describe("doInitPings", () => {
   it("calls retry with the corresponding error message if there was an error", async () => {
     const TEST_ERROR_MESSAGE = "ERROR_MESSAGE"
 
-    Promise.all = jest
+    Promise.all = vi
       .fn()
       .mockRejectedValueOnce(new Error(TEST_ERROR_MESSAGE))
       // The promise should be resolved to avoid an infinite loop.
@@ -183,7 +183,7 @@ describe("doInitPings", () => {
   it("calls retry with 'Connection timed out.' when the error code is `ECONNABORTED`", async () => {
     const TEST_ERROR = { code: "ECONNABORTED" }
 
-    Promise.all = jest
+    Promise.all = vi
       .fn()
       .mockRejectedValueOnce(TEST_ERROR)
       // The promise should be resolved to avoid an infinite loop.
@@ -211,7 +211,7 @@ describe("doInitPings", () => {
       },
     }
 
-    Promise.all = jest
+    Promise.all = vi
       .fn()
       .mockRejectedValueOnce(TEST_ERROR)
       // The promise should be resolved to avoid an infinite loop.
@@ -237,7 +237,7 @@ describe("doInitPings", () => {
       request: {},
     }
 
-    Promise.all = jest
+    Promise.all = vi
       .fn()
       .mockRejectedValueOnce(TEST_ERROR)
       // The promise should be resolved to avoid an infinite loop.
@@ -285,7 +285,7 @@ describe("doInitPings", () => {
       </Fragment>
     )
 
-    Promise.all = jest
+    Promise.all = vi
       .fn()
       .mockRejectedValueOnce(TEST_ERROR)
       // The promise should be resolved to avoid an infinite loop.
@@ -324,7 +324,7 @@ describe("doInitPings", () => {
       </Fragment>
     )
 
-    Promise.all = jest
+    Promise.all = vi
       .fn()
       .mockRejectedValueOnce(TEST_ERROR)
       // The promise should be resolved to avoid an infinite loop.
@@ -353,7 +353,7 @@ describe("doInitPings", () => {
       },
     }
 
-    Promise.all = jest
+    Promise.all = vi
       .fn()
       .mockRejectedValueOnce(TEST_ERROR)
       // The promise should be resolved to avoid an infinite loop.
@@ -377,7 +377,7 @@ describe("doInitPings", () => {
   it("calls retry with correct total tries", async () => {
     const TEST_ERROR_MESSAGE = "TEST_ERROR_MESSAGE"
 
-    Promise.all = jest
+    Promise.all = vi
       .fn()
       .mockRejectedValueOnce(TEST_ERROR_MESSAGE)
       .mockRejectedValueOnce(TEST_ERROR_MESSAGE)
@@ -401,7 +401,7 @@ describe("doInitPings", () => {
   it("has increasing but capped retry backoff", async () => {
     const TEST_ERROR_MESSAGE = "TEST_ERROR_MESSAGE"
 
-    Promise.all = jest
+    Promise.all = vi
       .fn()
       .mockRejectedValueOnce(TEST_ERROR_MESSAGE)
       .mockRejectedValueOnce(TEST_ERROR_MESSAGE)
@@ -443,7 +443,7 @@ describe("doInitPings", () => {
   it("backs off independently for each target url", async () => {
     const TEST_ERROR_MESSAGE = "TEST_ERROR_MESSAGE"
 
-    Promise.all = jest
+    Promise.all = vi
       .fn()
       .mockRejectedValueOnce(TEST_ERROR_MESSAGE)
       .mockRejectedValueOnce(TEST_ERROR_MESSAGE)
@@ -480,7 +480,7 @@ describe("doInitPings", () => {
   it("resets timeout each ping call", async () => {
     const TEST_ERROR_MESSAGE = "TEST_ERROR_MESSAGE"
 
-    Promise.all = jest
+    Promise.all = vi
       .fn()
       .mockRejectedValueOnce(TEST_ERROR_MESSAGE)
       .mockRejectedValueOnce(TEST_ERROR_MESSAGE)
@@ -542,10 +542,10 @@ describe("WebsocketConnection", () => {
     server = new WS("localhost:1234")
 
     originalAxiosGet = axios.get
-    axios.get = jest.fn()
+    axios.get = vi.fn()
 
     originalPromiseAll = Promise.all
-    Promise.all = jest
+    Promise.all = vi
       .fn()
       .mockResolvedValueOnce(["", MOCK_HOST_CONFIG_RESPONSE])
 
@@ -574,7 +574,7 @@ describe("WebsocketConnection", () => {
   })
 
   it("increments message cache run count", () => {
-    const incrementRunCountSpy = jest.spyOn(
+    const incrementRunCountSpy = vi.spyOn(
       // @ts-expect-error
       client.cache,
       "incrementRunCount"
@@ -588,7 +588,7 @@ describe("WebsocketConnection", () => {
 
   it("sends message with correct arguments", () => {
     // @ts-expect-error
-    const sendSpy = jest.spyOn(client.websocket, "send")
+    const sendSpy = vi.spyOn(client.websocket, "send")
 
     const TEST_BACK_MSG = {}
     client.sendMessage(TEST_BACK_MSG)
@@ -620,10 +620,10 @@ describe("WebsocketConnection auth token handling", () => {
   let websocketSpy: any
 
   beforeEach(() => {
-    websocketSpy = jest.spyOn(window, "WebSocket")
+    websocketSpy = vi.spyOn(window, "WebSocket")
 
     originalAxiosGet = axios.get
-    axios.get = jest.fn()
+    axios.get = vi.fn()
   })
 
   afterEach(() => {
@@ -631,7 +631,7 @@ describe("WebsocketConnection auth token handling", () => {
   })
 
   it("always sets first Sec-WebSocket-Protocol option to 'streamlit'", async () => {
-    const resetHostAuthToken = jest.fn()
+    const resetHostAuthToken = vi.fn()
     const ws = new WebsocketConnection(createMockArgs({ resetHostAuthToken }))
     // @ts-expect-error
     await ws.connectToWebSocket()
@@ -644,7 +644,7 @@ describe("WebsocketConnection auth token handling", () => {
   })
 
   it("sets second Sec-WebSocket-Protocol option to value from claimHostAuthToken", async () => {
-    const resetHostAuthToken = jest.fn()
+    const resetHostAuthToken = vi.fn()
     const ws = new WebsocketConnection(
       createMockArgs({
         claimHostAuthToken: () => Promise.resolve("iAmAnAuthToken"),
@@ -691,7 +691,7 @@ describe("WebsocketConnection auth token handling", () => {
     sessionInfo.setCurrent(mockSessionInfoProps())
     expect(sessionInfo.last?.sessionId).toBe("lastSessionId")
 
-    const resetHostAuthToken = jest.fn()
+    const resetHostAuthToken = vi.fn()
     const ws = new WebsocketConnection(
       createMockArgs({
         sessionInfo,

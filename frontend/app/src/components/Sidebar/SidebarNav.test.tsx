@@ -29,13 +29,13 @@ import {
 
 import SidebarNav, { Props } from "./SidebarNav"
 
-jest.mock("@streamlit/lib/src/util/Hooks", () => ({
+vi.mock("@streamlit/lib/src/util/Hooks", () => ({
   __esModule: true,
-  ...jest.requireActual("@streamlit/lib/src/util/Hooks"),
-  useIsOverflowing: jest.fn(),
+  ...vi.requireActual("@streamlit/lib/src/util/Hooks"),
+  useIsOverflowing: vi.fn(),
 }))
 
-const mockUseIsOverflowing = useIsOverflowing as jest.MockedFunction<
+const mockUseIsOverflowing = useIsOverflowing as vi.MockedFunction<
   typeof useIsOverflowing
 >
 
@@ -44,11 +44,11 @@ const getProps = (props: Partial<Props> = {}): Props => ({
     { pageScriptHash: "main_page_hash", pageName: "streamlit_app" },
     { pageScriptHash: "other_page_hash", pageName: "my_other_page" },
   ],
-  collapseSidebar: jest.fn(),
+  collapseSidebar: vi.fn(),
   currentPageScriptHash: "",
   hasSidebarElements: false,
-  hideParentScrollbar: jest.fn(),
-  onPageChange: jest.fn(),
+  hideParentScrollbar: vi.fn(),
+  onPageChange: vi.fn(),
   endpoints: mockEndpoints(),
   ...props,
 })

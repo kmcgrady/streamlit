@@ -119,7 +119,7 @@ class StreamlitLibExample extends PureComponent<Props, State> {
       // reads the state.
       formsWithPendingRequestsChanged: formIds =>
         this.widgetMgr.setFormsWithUploads(formIds),
-      requestFileURLs: jest.fn(),
+      requestFileURLs: vi.fn(),
     })
 
     this.sessionInfo.setCurrent({

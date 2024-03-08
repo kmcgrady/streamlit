@@ -30,8 +30,8 @@ import { SegmentMetricsManager } from "@streamlit/app/src/SegmentMetricsManager"
 
 import { SettingsDialog, Props } from "./SettingsDialog"
 
-const mockSetTheme = jest.fn()
-const mockAddThemes = jest.fn()
+const mockSetTheme = vi.fn()
+const mockAddThemes = vi.fn()
 
 const getContext = (
   extend?: Partial<LibContextProps>
@@ -45,13 +45,13 @@ const getContext = (
 
 const getProps = (extend?: Partial<Props>): Props => ({
   isServerConnected: true,
-  onClose: jest.fn(),
-  onSave: jest.fn(),
+  onClose: vi.fn(),
+  onSave: vi.fn(),
   settings: { wideMode: false, runOnSave: false },
   allowRunOnSave: false,
   developerMode: true,
   animateModal: true,
-  openThemeCreator: jest.fn(),
+  openThemeCreator: vi.fn(),
   metricsMgr: new SegmentMetricsManager(mockSessionInfo()),
   ...extend,
 })

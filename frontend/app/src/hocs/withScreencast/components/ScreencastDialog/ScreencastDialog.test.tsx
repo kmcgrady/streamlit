@@ -24,9 +24,9 @@ import { render } from "@streamlit/lib"
 import ScreencastDialog, { Props } from "./ScreencastDialog"
 
 const getProps = (props: Partial<Props> = {}): Props => ({
-  onClose: jest.fn(),
-  startRecording: jest.fn(),
-  toggleRecordAudio: jest.fn(),
+  onClose: vi.fn(),
+  startRecording: vi.fn(),
+  toggleRecordAudio: vi.fn(),
   recordAudio: false,
   ...props,
 })

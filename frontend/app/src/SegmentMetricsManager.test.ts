@@ -30,8 +30,8 @@ const getSegmentMetricsManager = (
   sessionInfo?: SessionInfo
 ): SegmentMetricsManager => {
   const mm = new SegmentMetricsManager(sessionInfo || mockSessionInfo())
-  mm.track = jest.fn()
-  mm.identify = jest.fn()
+  mm.track = vi.fn()
+  mm.identify = vi.fn()
   return mm
 }
 

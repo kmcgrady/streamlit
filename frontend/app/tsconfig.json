@@ -18,7 +18,7 @@
     "skipLibCheck": true,
     "strict": true,
     "target": "es6",
-    "types": ["vite/client"],
+    "types": ["vite/client", "vitest/globals"],
     "paths": {
       "@streamlit/lib": ["../lib/src"],
       "@streamlit/app": ["./src"]

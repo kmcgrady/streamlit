@@ -57,25 +57,25 @@ import {
   openMenu,
 } from "@streamlit/app/src/components/MainMenu/mainMenuTestHelpers"
 
-jest.mock("@streamlit/lib/src/baseconsts", () => {
+vi.mock("@streamlit/lib/src/baseconsts", () => {
   return {
-    ...jest.requireActual("@streamlit/lib/src/baseconsts"),
+    ...vi.requireActual("@streamlit/lib/src/baseconsts"),
   }
 })
 
-jest.mock("@streamlit/app/src/connection/ConnectionManager", () => {
-  const actualModule = jest.requireActual(
+vi.mock("@streamlit/app/src/connection/ConnectionManager", () => {
+  const actualModule = vi.requireActual(
     "@streamlit/app/src/connection/ConnectionManager"
   )
 
-  const MockedClass = jest.fn().mockImplementation(props => {
+  const MockedClass = vi.fn().mockImplementation(props => {
     return {
       props,
-      connect: jest.fn(),
-      isConnected: jest.fn(),
-      disconnect: jest.fn(),
-      sendMessage: jest.fn(),
-      incrementMessageCacheRunCount: jest.fn(),
+      connect: vi.fn(),
+      isConnected: vi.fn(),
+      disconnect: vi.fn(),
+      sendMessage: vi.fn(),
+      incrementMessageCacheRunCount: vi.fn(),
       getBaseUriParts() {
         return {
           basePath: "",
@@ -91,15 +91,15 @@ jest.mock("@streamlit/app/src/connection/ConnectionManager", () => {
     ConnectionManager: MockedClass,
   }
 })
-jest.mock("@streamlit/lib/src/SessionInfo", () => {
-  const actualModule = jest.requireActual("@streamlit/lib/src/SessionInfo")
+vi.mock("@streamlit/lib/src/SessionInfo", () => {
+  const actualModule = vi.requireActual("@streamlit/lib/src/SessionInfo")
 
-  const MockedClass = jest.fn().mockImplementation(() => {
+  const MockedClass = vi.fn().mockImplementation(() => {
     return new actualModule.SessionInfo()
   })
 
   // @ts-expect-error
-  MockedClass.propsFromNewSessionMessage = jest
+  MockedClass.propsFromNewSessionMessage = vi
     .fn()
     .mockImplementation(actualModule.SessionInfo.propsFromNewSessionMessage)
 
@@ -109,14 +109,14 @@ jest.mock("@streamlit/lib/src/SessionInfo", () => {
   }
 })
 
-jest.mock("@streamlit/lib/src/hostComm/HostCommunicationManager", () => {
-  const actualModule = jest.requireActual(
+vi.mock("@streamlit/lib/src/hostComm/HostCommunicationManager", () => {
+  const actualModule = vi.requireActual(
     "@streamlit/lib/src/hostComm/HostCommunicationManager"
   )
 
-  const MockedClass = jest.fn().mockImplementation((...props) => {
+  const MockedClass = vi.fn().mockImplementation((...props) => {
     const hostCommunicationMgr = new actualModule.default(...props)
-    jest.spyOn(hostCommunicationMgr, "sendMessageToHost")
+    vi.spyOn(hostCommunicationMgr, "sendMessageToHost")
     return hostCommunicationMgr
   })
 
@@ -127,12 +127,12 @@ jest.mock("@streamlit/lib/src/hostComm/HostCommunicationManager", () => {
   }
 })
 
-jest.mock("@streamlit/app/src/connection/DefaultStreamlitEndpoints", () => {
-  const actualModule = jest.requireActual(
+vi.mock("@streamlit/app/src/connection/DefaultStreamlitEndpoints", () => {
+  const actualModule = vi.requireActual(
     "@streamlit/app/src/connection/DefaultStreamlitEndpoints"
   )
 
-  const MockedClass = jest.fn().mockImplementation(() => {
+  const MockedClass = vi.fn().mockImplementation(() => {
     return mockEndpoints()
   })
 
@@ -142,12 +142,12 @@ jest.mock("@streamlit/app/src/connection/DefaultStreamlitEndpoints", () => {
   }
 })
 
-jest.mock("@streamlit/lib/src/WidgetStateManager", () => {
-  const actualModule = jest.requireActual(
+vi.mock("@streamlit/lib/src/WidgetStateManager", () => {
+  const actualModule = vi.requireActual(
     "@streamlit/lib/src/WidgetStateManager"
   )
 
-  const MockedClass = jest.fn().mockImplementation((...props) => {
+  const MockedClass = vi.fn().mockImplementation((...props) => {
     return new actualModule.WidgetStateManager(...props)
   })
 
@@ -157,12 +157,12 @@ jest.mock("@streamlit/lib/src/WidgetStateManager", () => {
   }
 })
 
-jest.mock("@streamlit/app/src/SegmentMetricsManager", () => {
-  const actualModule = jest.requireActual(
+vi.mock("@streamlit/app/src/SegmentMetricsManager", () => {
+  const actualModule = vi.requireActual(
     "@streamlit/app/src/SegmentMetricsManager"
   )
 
-  const MockedClass = jest.fn().mockImplementation((...props) => {
+  const MockedClass = vi.fn().mockImplementation((...props) => {
     return new actualModule.SegmentMetricsManager(...props)
   })
 
@@ -172,12 +172,10 @@ jest.mock("@streamlit/app/src/SegmentMetricsManager", () => {
   }
 })
 
-jest.mock("@streamlit/lib/src/FileUploadClient", () => {
-  const actualModule = jest.requireActual(
-    "@streamlit/lib/src/FileUploadClient"
-  )
+vi.mock("@streamlit/lib/src/FileUploadClient", () => {
+  const actualModule = vi.requireActual("@streamlit/lib/src/FileUploadClient")
 
-  const MockedClass = jest.fn().mockImplementation((...props) => {
+  const MockedClass = vi.fn().mockImplementation((...props) => {
     return new actualModule.FileUploadClient(...props)
   })
 
@@ -190,16 +188,16 @@ jest.mock("@streamlit/lib/src/FileUploadClient", () => {
 const getProps = (extend?: Partial<Props>): Props => ({
   screenCast: {
     currentState: "OFF",
-    toggleRecordAudio: jest.fn(),
-    startRecording: jest.fn(),
-    stopRecording: jest.fn(),
+    toggleRecordAudio: vi.fn(),
+    startRecording: vi.fn(),
+    stopRecording: vi.fn(),
   },
   theme: {
     activeTheme: lightTheme,
     availableThemes: [],
-    setTheme: jest.fn(),
-    addThemes: jest.fn(),
-    setImportedTheme: jest.fn(),
+    setTheme: vi.fn(),
+    addThemes: vi.fn(),
+    setImportedTheme: vi.fn(),
   },
   ...extend,
 })
@@ -244,9 +242,9 @@ const NEW_SESSION_JSON: INewSession = {
 }
 
 // Prevent "moment-timezone requires moment" exception when mocking "moment".
-jest.mock("moment-timezone", () => jest.fn())
-jest.mock("moment", () =>
-  jest.fn().mockImplementation(() => ({
+vi.mock("moment-timezone", () => vi.fn())
+vi.mock("moment", () =>
+  vi.fn().mockImplementation(() => ({
     format: () => "date",
   }))
 )
@@ -321,7 +319,7 @@ describe("App", () => {
   beforeEach(() => {
     // @ts-expect-error
     window.prerenderReady = false
-    jest.clearAllMocks()
+    vi.clearAllMocks()
   })
 
   it("renders without crashing", () => {
@@ -357,7 +355,7 @@ describe("App", () => {
       // @ts-expect-error
       delete window.location
       // @ts-expect-error
-      window.location = { reload: jest.fn() }
+      window.location = { reload: vi.fn() }
 
       // Ensure SessionInfo is initialized
       const sessionInfo = getStoredValue<SessionInfo>(SessionInfo)
@@ -648,7 +646,7 @@ describe("App", () => {
       // @ts-expect-error
       const sessionInfo = SessionInfo.mock.results[0].value
 
-      const setCurrentSpy = jest.spyOn(sessionInfo, "setCurrent")
+      const setCurrentSpy = vi.spyOn(sessionInfo, "setCurrent")
 
       act(() => {
         const fwMessage = new ForwardMsg()
@@ -667,7 +665,7 @@ describe("App", () => {
       // @ts-expect-error
       const sessionInfo = SessionInfo.mock.results[0].value
 
-      const setCurrentSpy = jest.spyOn(sessionInfo, "setCurrent")
+      const setCurrentSpy = vi.spyOn(sessionInfo, "setCurrent")
 
       expect(sessionInfo.isSet).toBe(false)
       sendForwardMessage("newSession", NEW_SESSION_JSON)
@@ -689,7 +687,7 @@ describe("App", () => {
       // @ts-expect-error
       const sessionInfo = SessionInfo.mock.results[0].value
 
-      const setCurrentSpy = jest.spyOn(sessionInfo, "setCurrent")
+      const setCurrentSpy = vi.spyOn(sessionInfo, "setCurrent")
 
       expect(sessionInfo.isSet).toBe(false)
       sendForwardMessage("newSession", NEW_SESSION_JSON)
@@ -875,7 +873,7 @@ describe("App", () => {
 
       beforeEach(() => {
         window.history.pushState({}, "", "/")
-        pushStateSpy = jest.spyOn(window.history, "pushState")
+        pushStateSpy = vi.spyOn(window.history, "pushState")
       })
 
       afterEach(() => {
@@ -1307,7 +1305,7 @@ describe("App", () => {
     beforeEach(() => {
       window.history.pushState({}, "", "/")
 
-      pushStateSpy = jest.spyOn(window.history, "pushState")
+      pushStateSpy = vi.spyOn(window.history, "pushState")
     })
 
     afterEach(() => {
@@ -1460,7 +1458,7 @@ describe("App", () => {
         getStoredValue<WidgetStateManager>(WidgetStateManager)
       const connectionManager = getMockConnectionManager()
 
-      jest.spyOn(connectionManager, "getBaseUriParts").mockReturnValue({
+      vi.spyOn(connectionManager, "getBaseUriParts").mockReturnValue({
         basePath: "foo/bar",
         host: "",
         port: 8501,
@@ -1561,7 +1559,7 @@ describe("App", () => {
         HostCommunicationManager
       )
 
-      const sendMessageFunc = jest.spyOn(
+      const sendMessageFunc = vi.spyOn(
         hostCommunicationMgr,
         "sendMessageToHost"
       )
@@ -1620,7 +1618,7 @@ describe("App", () => {
       const metricsManager = getStoredValue<SegmentMetricsManager>(
         SegmentMetricsManager
       )
-      const handleDeltaMessageSpy = jest.spyOn(
+      const handleDeltaMessageSpy = vi.spyOn(
         metricsManager,
         "handleDeltaMessage"
       )

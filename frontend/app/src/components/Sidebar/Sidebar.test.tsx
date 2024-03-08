@@ -32,13 +32,13 @@ import {
 } from "@streamlit/lib"
 import Sidebar, { SidebarProps } from "./Sidebar"
 
-jest.mock("@streamlit/lib/src/util/Hooks", () => ({
+vi.mock("@streamlit/lib/src/util/Hooks", () => ({
   __esModule: true,
-  ...jest.requireActual("@streamlit/lib/src/util/Hooks"),
-  useIsOverflowing: jest.fn(),
+  ...vi.requireActual("@streamlit/lib/src/util/Hooks"),
+  useIsOverflowing: vi.fn(),
 }))
 
-const mockUseIsOverflowing = useIsOverflowing as jest.MockedFunction<
+const mockUseIsOverflowing = useIsOverflowing as vi.MockedFunction<
   typeof useIsOverflowing
 >
 
@@ -49,7 +49,7 @@ function renderSidebar(props: Partial<SidebarProps> = {}): RenderResult {
       chevronDownshift={0}
       theme={emotionLightTheme}
       appPages={[]}
-      onPageChange={jest.fn()}
+      onPageChange={vi.fn()}
       currentPageScriptHash={""}
       hasElements
       hideSidebarNav={false}
