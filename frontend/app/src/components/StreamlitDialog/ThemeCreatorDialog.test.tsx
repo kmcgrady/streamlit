@@ -253,20 +253,13 @@ describe("Opened ThemeCreatorDialog", () => {
   })
 
   it("should copy to clipboard", () => {
-    // This hack is used below to get around `shallow` not supporting the
-    // `useState` hook, and emotion's `useTheme` hook (used by Modal) getting
-    // thrown off by us mocking `useContext` above :(
-    const updateCopied = jest.fn()
-    const useStateSpy = jest.spyOn(React, "useState")
-    // @ts-expect-error
-    useStateSpy.mockImplementation(init => [init, updateCopied])
-
     const props = getProps()
     customRenderLibContext(<ThemeCreatorDialog {...props} />, {
       setTheme: mockSetTheme,
       addThemes: mockAddThemes,
     })
 
+    expect(screen.queryByText("Copied to clipboard")).not.toBeInTheDocument()
     const copyBtn = screen.getByRole("button", {
       name: "Copy theme to clipboard",
     })
@@ -275,6 +268,6 @@ describe("Opened ThemeCreatorDialog", () => {
     expect(navigator.clipboard.writeText).toHaveBeenCalledWith(`[theme]
 base="light"
 `)
-    expect(updateCopied).toHaveBeenCalledWith(true)
+    expect(screen.getByText("Copied to clipboard")).toBeInTheDocument()
   })
 })

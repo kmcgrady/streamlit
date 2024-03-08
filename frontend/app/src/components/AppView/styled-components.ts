@@ -16,7 +16,7 @@
 
 import styled from "@emotion/styled"
 
-export const StyledAppViewContainer = styled.div(() => ({
+export const StyledAppViewContainer = styled.div({
   display: "flex",
   flexDirection: "row",
   justifyContent: "flex-start",
@@ -33,7 +33,7 @@ export const StyledAppViewContainer = styled.div(() => ({
     // print multiple pages if app is scrollable in Safari
     overflow: "visible",
   },
-}))
+})
 
 export interface StyledAppViewMainProps {
   isEmbedded: boolean

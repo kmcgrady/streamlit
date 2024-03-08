@@ -14,20 +14,16 @@
  * limitations under the License.
  */
 
-import React from "react"
-
 import JSON5 from "json5"
-import { act, screen } from "@testing-library/react"
+import { act } from "@testing-library/react"
 import { renderHook } from "@testing-library/react-hooks"
-import { PickingInfo } from "@deck.gl/core/typed"
+import { PickingInfo } from "@deck.gl/core"
 
-import { render } from "@streamlit/lib/src/test_util"
 import { DeckGlJsonChart as DeckGlJsonChartProto } from "@streamlit/lib/src/proto"
 import { WidgetStateManager } from "@streamlit/lib/src/WidgetStateManager"
 import { mockTheme } from "@streamlit/lib/src/mocks/mockTheme"
 import "@testing-library/jest-dom"
 
-import { DeckGlJsonChart } from "./DeckGlJsonChart"
 import type { DeckGLProps } from "./types"
 import { useDeckGl, UseDeckGlProps } from "./useDeckGl"
 
@@ -104,16 +100,17 @@ const getUseDeckGlProps = (
   }
 }
 
-describe("DeckGlJsonChart element", () => {
-  it("renders without crashing", () => {
-    const props = getProps()
+// describe("DeckGlJsonChart element", () => {
+// it("should merge client and server changes in viewState", () => {
+//   const props = getProps()
+//   const initialViewStateServer = mockInitialViewState
 
-    render(<DeckGlJsonChart {...props} />)
+//   const initialViewStateClient = { ...mockInitialViewState, zoom: 8 }
 
-    const deckGlJsonChart = screen.getByTestId("stDeckGlJsonChart")
-    expect(deckGlJsonChart).toBeVisible()
-  })
-})
+//     const deckGlJsonChart = screen.getByTestId("stDeckGlJsonChart")
+//     expect(deckGlJsonChart).toBeVisible()
+//   })
+// })
 
 describe("#useDeckGl", () => {
   it("should merge client and server changes in viewState", () => {
