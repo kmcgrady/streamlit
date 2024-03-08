@@ -16,7 +16,7 @@
 
 import React, { PureComponent, ReactNode } from "react"
 import moment from "moment"
-import { HotKeys, KeyMap } from "react-hotkeys"
+import Hotkeys from "react-hot-keys"
 import { enableAllPlugins as enableImmerPlugins } from "immer"
 import classNames from "classnames"
 
@@ -52,7 +52,6 @@ import {
   setCookie,
   extractPageNameFromPathName,
   BaseUriParts,
-  RERUN_PROMPT_MODAL_DIALOG,
   SessionInfo,
   FileUploadClient,
   logError,
@@ -368,26 +367,6 @@ export class App extends PureComponent<Props, State> {
   /**
    * Global keyboard shortcuts.
    */
-  keyMap: KeyMap = {
-    RERUN: "r",
-    CLEAR_CACHE: "c",
-    // We use key up for stop recording to ensure the esc key doesn't trigger
-    // other actions (like exiting modals)
-    STOP_RECORDING: { sequence: "esc", action: "keyup" },
-  }
-
-  keyHandlers = {
-    RERUN: () => {
-      this.rerunScript()
-    },
-    CLEAR_CACHE: () => {
-      if (showDevelopmentOptions(this.state.isOwner, this.state.toolbarMode)) {
-        this.openClearCacheDialog()
-      }
-    },
-    STOP_RECORDING: this.props.screenCast.stopRecording,
-  }
-
   componentDidMount(): void {
     // Initialize connection manager here, to avoid
     // "Can't call setState on a component that is not yet mounted." error.
@@ -820,17 +799,6 @@ export class App extends PureComponent<Props, State> {
         type: DialogType.SCRIPT_COMPILE_ERROR,
         exception: sessionEvent.scriptCompilationException,
         onClose: () => {},
-      }
-      this.openDialog(newDialog)
-    } else if (
-      RERUN_PROMPT_MODAL_DIALOG &&
-      sessionEvent.type === "scriptChangedOnDisk"
-    ) {
-      const newDialog: DialogProps = {
-        type: DialogType.SCRIPT_CHANGED,
-        onRerun: this.rerunScript,
-        onClose: () => {},
-        allowRunOnSave: this.state.allowRunOnSave,
       }
       this.openDialog(newDialog)
     }
@@ -1470,6 +1438,7 @@ export class App extends PureComponent<Props, State> {
    * Asks the server to clear the st_cache and st_cache_data and st_cache_resource
    */
   clearCache = (): void => {
+    console.log("Clearing cache")
     this.closeDialog()
     if (this.isServerConnected()) {
       this.metricsMgr.enqueue("clearCache")
@@ -1677,6 +1646,29 @@ export class App extends PureComponent<Props, State> {
     }
   }
 
+  handleKeyDown = (keyName: string, e: KeyboardEvent): void => {
+    switch (keyName) {
+      case "c":
+        // CLEAR CACHE
+        if (
+          showDevelopmentOptions(this.state.isOwner, this.state.toolbarMode)
+        ) {
+          this.openClearCacheDialog()
+        }
+        break
+      case "r":
+        // RERUN
+        this.rerunScript()
+        break
+    }
+  }
+
+  handleKeyUp = (keyName: string, e: KeyboardEvent): void => {
+    if (keyName === "esc") {
+      this.props.screenCast.stopRecording()
+    }
+  }
+
   render(): JSX.Element {
     const {
       allowRunOnSave,
@@ -1725,10 +1717,6 @@ export class App extends PureComponent<Props, State> {
     const widgetsDisabled =
       inputsDisabled || connectionState !== ConnectionState.CONNECTED
 
-    // Attach and focused props provide a way to handle Global Hot Keys
-    // https://github.com/greena13/react-hotkeys/issues/41
-    // attach: DOM element the keyboard listeners should attach to
-    // focused: A way to force focus behaviour
     return (
       <AppContext.Provider
         value={{
@@ -1762,11 +1750,10 @@ export class App extends PureComponent<Props, State> {
             fragmentIdsThisRun: this.state.fragmentIdsThisRun,
           }}
         >
-          <HotKeys
-            keyMap={this.keyMap}
-            handlers={this.keyHandlers}
-            attach={window}
-            focused={true}
+          <Hotkeys
+            keyName="r,c,esc"
+            onKeyDown={this.handleKeyDown}
+            onKeyUp={this.handleKeyUp}
           >
             <StyledApp
               className={outerDivClass}
@@ -1842,7 +1829,7 @@ export class App extends PureComponent<Props, State> {
               />
               {renderedDialog}
             </StyledApp>
-          </HotKeys>
+          </Hotkeys>
         </LibContext.Provider>
       </AppContext.Provider>
     )

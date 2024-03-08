@@ -46,4 +46,22 @@ export default defineConfig({
     // this sets a default port to 3000
     port: 3000,
   },
+  build: {
+    rollupOptions: {
+      output: {
+        // Customize the chunk file naming pattern to match static/js/[name].[hash].js
+        chunkFileNames: "static/js/[name].[hash].js",
+        // Ensure assetFileNames is also configured if you're handling asset files
+        assetFileNames: assetInfo => {
+          if (assetInfo.name.endsWith(".css")) {
+            // For CSS files, place them in the /static/css/ directory
+            return "static/css/[name].[hash][extname]"
+          } else {
+            // For other assets, use the /static/media/ directory
+            return "static/media/[name].[hash][extname]"
+          }
+        },
+      },
+    },
+  },
 })

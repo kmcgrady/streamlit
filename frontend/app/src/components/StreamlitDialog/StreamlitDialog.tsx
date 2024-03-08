@@ -26,12 +26,8 @@ import {
   StreamlitMarkdown,
   IException,
 } from "@streamlit/lib"
-import { HotKeys } from "react-hotkeys"
+import Hotkeys from "react-hot-keys"
 
-import {
-  ScriptChangedDialog,
-  Props as ScriptChangedDialogProps,
-} from "@streamlit/app/src/components/StreamlitDialog/ScriptChangedDialog"
 import { STREAMLIT_HOME_URL } from "@streamlit/app/src/urls"
 import { Props as SettingsDialogProps, SettingsDialog } from "./SettingsDialog"
 import ThemeCreatorDialog, {
@@ -53,10 +49,6 @@ interface SettingsProps extends SettingsDialogProps {
   type: DialogType.SETTINGS
 }
 
-interface ScriptChangedProps extends ScriptChangedDialogProps {
-  type: DialogType.SCRIPT_CHANGED
-}
-
 interface ThemeCreatorProps extends ThemeCreatorDialogProps {
   type: DialogType.THEME_CREATOR
 }
@@ -64,9 +56,7 @@ interface ThemeCreatorProps extends ThemeCreatorDialogProps {
 export type DialogProps =
   | AboutProps
   | ClearCacheProps
-  | RerunScriptProps
   | SettingsProps
-  | ScriptChangedProps
   | ScriptCompileErrorProps
   | ThemeCreatorProps
   | WarningProps
@@ -76,9 +66,7 @@ export type DialogProps =
 export enum DialogType {
   ABOUT = "about",
   CLEAR_CACHE = "clearCache",
-  RERUN_SCRIPT = "rerunScript",
   SETTINGS = "settings",
-  SCRIPT_CHANGED = "scriptChanged",
   SCRIPT_COMPILE_ERROR = "scriptCompileError",
   THEME_CREATOR = "themeCreator",
   WARNING = "warning",
@@ -92,12 +80,8 @@ export function StreamlitDialog(dialogProps: DialogProps): ReactNode {
       return aboutDialog(dialogProps)
     case DialogType.CLEAR_CACHE:
       return clearCacheDialog(dialogProps)
-    case DialogType.RERUN_SCRIPT:
-      return rerunScriptDialog(dialogProps)
     case DialogType.SETTINGS:
       return settingsDialog(dialogProps)
-    case DialogType.SCRIPT_CHANGED:
-      return <ScriptChangedDialog {...dialogProps} />
     case DialogType.SCRIPT_COMPILE_ERROR:
       return scriptCompileErrorDialog(dialogProps)
     case DialogType.THEME_CREATOR:
@@ -204,89 +188,18 @@ interface ClearCacheProps {
  * onClose         - callback to close the dialog
  */
 function clearCacheDialog(props: ClearCacheProps): ReactElement {
-  const keyHandlers = {
-    enter: () => props.defaultAction(),
-  }
-
-  // Not sure exactly why attach is necessary on the HotKeys
-  // component here but it's not working without it
   return (
-    <HotKeys handlers={keyHandlers} attach={window}>
-      <div data-testid="stClearCacheDialog">
-        <Modal isOpen onClose={props.onClose}>
-          <ModalHeader>Clear caches</ModalHeader>
-          <ModalBody>
-            <div>
-              <b>Are you sure you want to clear the app's function caches?</b>
-            </div>
-            <div>
-              This will remove all cached entries from functions using{" "}
-              <code>@st.cache</code>, <code>@st.cache_data</code>, and{" "}
-              <code>@st.cache_resource</code>.
-            </div>
-          </ModalBody>
-          <ModalFooter>
-            <ModalButton
-              kind={BaseButtonKind.TERTIARY}
-              onClick={props.onClose}
-            >
-              Cancel
-            </ModalButton>
-            <ModalButton
-              autoFocus
-              kind={BaseButtonKind.SECONDARY}
-              onClick={props.confirmCallback}
-            >
-              Clear caches
-            </ModalButton>
-          </ModalFooter>
-        </Modal>
-      </div>
-    </HotKeys>
-  )
-}
-
-interface RerunScriptProps {
-  type: DialogType.RERUN_SCRIPT
-
-  /** Callback to get the script's command line */
-  getCommandLine: () => string | string[]
-
-  /** Callback to set the script's command line */
-  setCommandLine: (value: string) => void
-
-  /** Callback to rerun the script */
-  rerunCallback: () => void
-
-  /** Callback to close the dialog */
-  onClose: PlainEventHandler
-
-  /** Callback to run the default action */
-  defaultAction: () => void
-}
-
-/**
- * Dialog shown when the user wants to rerun a script.
- */
-function rerunScriptDialog(props: RerunScriptProps): ReactElement {
-  const keyHandlers = {
-    enter: () => props.defaultAction(),
-  }
-
-  // Not sure exactly why attach is necessary on the HotKeys
-  // component here but it's not working without it
-  return (
-    <HotKeys handlers={keyHandlers} attach={window}>
+    <div data-testid="stClearCacheDialog">
       <Modal isOpen onClose={props.onClose}>
+        <ModalHeader>Clear caches</ModalHeader>
         <ModalBody>
-          <StyledRerunHeader>Command line:</StyledRerunHeader>
           <div>
-            <StyledCommandLine
-              autoFocus
-              className="command-line"
-              value={props.getCommandLine()}
-              onChange={event => props.setCommandLine(event.target.value)}
-            />
+            <b>Are you sure you want to clear the app's function caches?</b>
+          </div>
+          <div>
+            This will remove all cached entries from functions using{" "}
+            <code>@st.cache</code>, <code>@st.cache_data</code>, and{" "}
+            <code>@st.cache_resource</code>.
           </div>
         </ModalBody>
         <ModalFooter>
@@ -294,14 +207,15 @@ function rerunScriptDialog(props: RerunScriptProps): ReactElement {
             Cancel
           </ModalButton>
           <ModalButton
+            autoFocus
             kind={BaseButtonKind.SECONDARY}
-            onClick={() => props.rerunCallback()}
+            onClick={props.confirmCallback}
           >
-            Rerun
+            Clear caches
           </ModalButton>
         </ModalFooter>
       </Modal>
-    </HotKeys>
+    </div>
   )
 }
 
