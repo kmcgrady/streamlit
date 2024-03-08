@@ -57,14 +57,14 @@ import {
   openMenu,
 } from "@streamlit/app/src/components/MainMenu/mainMenuTestHelpers"
 
-vi.mock("@streamlit/lib/src/baseconsts", () => {
+vi.mock("@streamlit/lib/src/baseconsts", async () => {
   return {
-    ...vi.requireActual("@streamlit/lib/src/baseconsts"),
+    ...(await vi.importActual("@streamlit/lib/src/baseconsts")),
   }
 })
 
-vi.mock("@streamlit/app/src/connection/ConnectionManager", () => {
-  const actualModule = vi.requireActual(
+vi.mock("@streamlit/app/src/connection/ConnectionManager", async () => {
+  const actualModule = await vi.importActual(
     "@streamlit/app/src/connection/ConnectionManager"
   )
 
@@ -91,8 +91,10 @@ vi.mock("@streamlit/app/src/connection/ConnectionManager", () => {
     ConnectionManager: MockedClass,
   }
 })
-vi.mock("@streamlit/lib/src/SessionInfo", () => {
-  const actualModule = vi.requireActual("@streamlit/lib/src/SessionInfo")
+vi.mock("@streamlit/lib/src/SessionInfo", async () => {
+  const actualModule = await vi.importActual<any>(
+    "@streamlit/lib/src/SessionInfo"
+  )
 
   const MockedClass = vi.fn().mockImplementation(() => {
     return new actualModule.SessionInfo()
@@ -109,8 +111,8 @@ vi.mock("@streamlit/lib/src/SessionInfo", () => {
   }
 })
 
-vi.mock("@streamlit/lib/src/hostComm/HostCommunicationManager", () => {
-  const actualModule = vi.requireActual(
+vi.mock("@streamlit/lib/src/hostComm/HostCommunicationManager", async () => {
+  const actualModule = await vi.importActual<any>(
     "@streamlit/lib/src/hostComm/HostCommunicationManager"
   )
 
@@ -127,23 +129,26 @@ vi.mock("@streamlit/lib/src/hostComm/HostCommunicationManager", () => {
   }
 })
 
-vi.mock("@streamlit/app/src/connection/DefaultStreamlitEndpoints", () => {
-  const actualModule = vi.requireActual(
-    "@streamlit/app/src/connection/DefaultStreamlitEndpoints"
-  )
+vi.mock(
+  "@streamlit/app/src/connection/DefaultStreamlitEndpoints",
+  async () => {
+    const actualModule = await vi.importActual(
+      "@streamlit/app/src/connection/DefaultStreamlitEndpoints"
+    )
 
-  const MockedClass = vi.fn().mockImplementation(() => {
-    return mockEndpoints()
-  })
+    const MockedClass = vi.fn().mockImplementation(() => {
+      return mockEndpoints()
+    })
 
-  return {
-    ...actualModule,
-    DefaultStreamlitEndpoints: MockedClass,
+    return {
+      ...actualModule,
+      DefaultStreamlitEndpoints: MockedClass,
+    }
   }
-})
+)
 
-vi.mock("@streamlit/lib/src/WidgetStateManager", () => {
-  const actualModule = vi.requireActual(
+vi.mock("@streamlit/lib/src/WidgetStateManager", async () => {
+  const actualModule = await vi.importActual<any>(
     "@streamlit/lib/src/WidgetStateManager"
   )
 
@@ -157,8 +162,8 @@ vi.mock("@streamlit/lib/src/WidgetStateManager", () => {
   }
 })
 
-vi.mock("@streamlit/app/src/SegmentMetricsManager", () => {
-  const actualModule = vi.requireActual(
+vi.mock("@streamlit/app/src/SegmentMetricsManager", async () => {
+  const actualModule = await vi.importActual<any>(
     "@streamlit/app/src/SegmentMetricsManager"
   )
 
@@ -172,8 +177,10 @@ vi.mock("@streamlit/app/src/SegmentMetricsManager", () => {
   }
 })
 
-vi.mock("@streamlit/lib/src/FileUploadClient", () => {
-  const actualModule = vi.requireActual("@streamlit/lib/src/FileUploadClient")
+vi.mock("@streamlit/lib/src/FileUploadClient", async () => {
+  const actualModule = await vi.importActual<any>(
+    "@streamlit/lib/src/FileUploadClient"
+  )
 
   const MockedClass = vi.fn().mockImplementation((...props) => {
     return new actualModule.FileUploadClient(...props)

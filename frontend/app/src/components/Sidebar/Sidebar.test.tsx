@@ -32,9 +32,9 @@ import {
 } from "@streamlit/lib"
 import Sidebar, { SidebarProps } from "./Sidebar"
 
-vi.mock("@streamlit/lib/src/util/Hooks", () => ({
+vi.mock("@streamlit/lib/src/util/Hooks", async () => ({
   __esModule: true,
-  ...vi.requireActual("@streamlit/lib/src/util/Hooks"),
+  ...(await vi.importActual("@streamlit/lib/src/util/Hooks")),
   useIsOverflowing: vi.fn(),
 }))
 

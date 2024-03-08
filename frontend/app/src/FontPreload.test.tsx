@@ -17,8 +17,6 @@
 import fs from "fs"
 import path from "path"
 
-vi.dontMock("fs")
-
 // Current hashes for our preloaded font assets:
 const REGULAR_HASH = "0d69e5ff5e92ac64a0c9"
 const SEMI_BOLD_HASH = "abed79cd0df1827e18cf"

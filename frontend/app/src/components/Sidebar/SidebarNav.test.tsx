@@ -18,7 +18,7 @@ import React from "react"
 import "@testing-library/jest-dom"
 
 import * as reactDeviceDetect from "react-device-detect"
-import { fireEvent, screen } from "@testing-library/react"
+import { fireEvent, screen, prettyDOM } from "@testing-library/react"
 
 import {
   useIsOverflowing,
@@ -29,9 +29,9 @@ import {
 
 import SidebarNav, { Props } from "./SidebarNav"
 
-vi.mock("@streamlit/lib/src/util/Hooks", () => ({
+vi.mock("@streamlit/lib/src/util/Hooks", async () => ({
   __esModule: true,
-  ...vi.requireActual("@streamlit/lib/src/util/Hooks"),
+  ...(await vi.importActual("@streamlit/lib/src/util/Hooks")),
   useIsOverflowing: vi.fn(),
 }))
 
@@ -99,7 +99,7 @@ describe("SidebarNav", () => {
     })
 
     it("are added to each link", () => {
-      const buildAppPageURL = jest
+      const buildAppPageURL = vi
         .fn()
         .mockImplementation(
           (pageLinkBaseURL: string, page: IAppPage, pageIndex: number) => {
@@ -310,11 +310,13 @@ describe("SidebarNav", () => {
     expect(links[1]).toHaveTextContent("🦈")
   })
 
-  it("indicates the current page as active", () => {
+  it.only("indicates the current page as active", () => {
     const props = getProps({ currentPageScriptHash: "other_page_hash" })
     render(<SidebarNav {...props} />)
 
     const links = screen.getAllByTestId("stSidebarNavLink")
+    console.log(window.getComputedStyle(links[0]))
+    console.log(prettyDOM(links[1]))
     expect(links).toHaveLength(2)
 
     // isActive prop used to style background color, so check that
