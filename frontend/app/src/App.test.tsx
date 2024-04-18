@@ -51,7 +51,7 @@ import {
 import { SegmentMetricsManager } from "@streamlit/app/src/SegmentMetricsManager"
 import { ConnectionManager } from "@streamlit/app/src/connection/ConnectionManager"
 import { ConnectionState } from "@streamlit/app/src/connection/ConnectionState"
-import { App, Props, showDevelopmentOptions } from "./App"
+import { App, Props } from "./App"
 import {
   getMenuStructure,
   openMenu,
@@ -1816,7 +1816,7 @@ describe("App", () => {
       async (hostname, hostIsOwnr, toolbarMode, expectedResult) => {
         mockWindowLocation(hostname)
 
-        const result = showDevelopmentOptions(hostIsOwnr, toolbarMode)
+        const result = App.showDevelopmentOptions(hostIsOwnr, toolbarMode)
 
         expect(result).toEqual(expectedResult)
       }

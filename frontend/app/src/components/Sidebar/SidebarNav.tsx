@@ -107,8 +107,6 @@ const SidebarNav = ({
           const pageName = page.pageName as string
           const tooltipContent = pageName.replace(/_/g, " ")
           const isActive = page.pageScriptHash === currentPageScriptHash
-          console.log("pageName", pageName)
-          console.log("isActive", isActive)
 
           return (
             <li key={pageName}>

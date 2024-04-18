@@ -180,22 +180,6 @@ declare global {
   }
 }
 
-export const showDevelopmentOptions = (
-  hostIsOwner: boolean | undefined,
-  toolbarMode: Config.ToolbarMode
-): boolean => {
-  if (toolbarMode == Config.ToolbarMode.DEVELOPER) {
-    return true
-  }
-  if (
-    Config.ToolbarMode.VIEWER == toolbarMode ||
-    Config.ToolbarMode.MINIMAL == toolbarMode
-  ) {
-    return false
-  }
-  return hostIsOwner || isLocalhost()
-}
-
 export class App extends PureComponent<Props, State> {
   private readonly endpoints: StreamlitEndpoints
 
@@ -480,6 +464,22 @@ export class App extends PureComponent<Props, State> {
     this.hostCommunicationMgr.closeHostCommunication()
 
     window.removeEventListener("popstate", this.onHistoryChange, false)
+  }
+
+  static showDevelopmentOptions(
+    hostIsOwner: boolean | undefined,
+    toolbarMode: Config.ToolbarMode
+  ): boolean {
+    if (toolbarMode == Config.ToolbarMode.DEVELOPER) {
+      return true
+    }
+    if (
+      Config.ToolbarMode.VIEWER == toolbarMode ||
+      Config.ToolbarMode.MINIMAL == toolbarMode
+    ) {
+      return false
+    }
+    return hostIsOwner || isLocalhost()
   }
 
   showError(title: string, errorNode: ReactNode): void {
@@ -915,7 +915,7 @@ export class App extends PureComponent<Props, State> {
       // a fragment.
       document.title = `${newPageName} · Streamlit`
       handleFavicon(
-        `${import.meta.env.BASE_URL}/favicon.png`,
+        `${import.meta.env.BASE_URL}favicon.png`,
         this.hostCommunicationMgr.sendMessageToHost,
         this.endpoints
       )
@@ -1499,7 +1499,7 @@ export class App extends PureComponent<Props, State> {
       allowRunOnSave: this.state.allowRunOnSave,
       onSave: this.saveSettings,
       onClose: () => {},
-      developerMode: showDevelopmentOptions(
+      developerMode: App.showDevelopmentOptions(
         this.state.isOwner,
         this.state.toolbarMode
       ),
@@ -1617,7 +1617,7 @@ export class App extends PureComponent<Props, State> {
 
   showDeployButton = (): boolean => {
     return (
-      showDevelopmentOptions(this.state.isOwner, this.state.toolbarMode) &&
+      App.showDevelopmentOptions(this.state.isOwner, this.state.toolbarMode) &&
       !this.isInCloudEnvironment() &&
       this.sessionInfo.isSet &&
       !this.sessionInfo.isHello
@@ -1651,7 +1651,10 @@ export class App extends PureComponent<Props, State> {
       case "c":
         // CLEAR CACHE
         if (
-          showDevelopmentOptions(this.state.isOwner, this.state.toolbarMode)
+          App.showDevelopmentOptions(
+            this.state.isOwner,
+            this.state.toolbarMode
+          )
         ) {
           this.openClearCacheDialog()
         }
@@ -1693,7 +1696,7 @@ export class App extends PureComponent<Props, State> {
       appConfig,
       inputsDisabled,
     } = this.state
-    const developmentMode = showDevelopmentOptions(
+    const developmentMode = App.showDevelopmentOptions(
       this.state.isOwner,
       this.state.toolbarMode
     )

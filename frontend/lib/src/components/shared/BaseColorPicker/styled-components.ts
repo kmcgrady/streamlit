@@ -16,12 +16,21 @@
 
 import styled from "@emotion/styled"
 
-export const StyledColorPicker = styled.div(({ theme }) => ({
-  fontFamily: theme.genericFonts.bodyFont,
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "flex-start",
-}))
+interface StyledColorPickerProps {
+  width?: number
+  isDisabled: boolean
+}
+
+export const StyledColorPicker = styled.div<StyledColorPickerProps>(
+  ({ width, isDisabled, theme }) => ({
+    width: width ? `${width}px` : "auto",
+    cursor: isDisabled ? "not-allowed" : "default",
+    fontFamily: theme.genericFonts.bodyFont,
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "flex-start",
+  })
+)
 
 // We need this to override the default font-family: 'Menlo' rule,
 // Which causes the font to change to a serif one in Windows
@@ -31,18 +40,25 @@ export const StyledChromePicker = styled.div(() => ({
   },
 }))
 
-export const StyledColorPreview = styled.div(({ theme }) => ({
-  height: "1.8rem",
-  borderRadius: theme.radii.md,
-  borderColor: theme.colors.fadedText10,
-  cursor: "pointer",
-  boxShadow: "none",
-  lineHeight: theme.lineHeights.base,
-  "&:focus": {
-    outline: "none",
-  },
-  display: "flex",
-}))
+interface StyledColorPreviewProps {
+  isDisabled: boolean
+}
+
+export const StyledColorPreview = styled.div<StyledColorPreviewProps>(
+  ({ isDisabled, theme }) => ({
+    height: "1.8rem",
+    borderRadius: theme.radii.md,
+    borderColor: theme.colors.fadedText10,
+    pointerEvents: isDisabled ? "none" : "auto",
+    cursor: isDisabled ? "not-allowed" : "default",
+    boxShadow: "none",
+    lineHeight: theme.lineHeights.base,
+    "&:focus": {
+      outline: "none",
+    },
+    display: "flex",
+  })
+)
 
 export const StyledColorBlock = styled.div(({ theme }) => ({
   height: "1.8rem",

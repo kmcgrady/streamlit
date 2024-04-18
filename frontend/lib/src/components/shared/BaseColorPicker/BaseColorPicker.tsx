@@ -106,19 +106,17 @@ class BaseColorPicker extends React.PureComponent<
     const { width, showValue, label, labelVisibility, help, disabled } =
       this.props
     const { value } = this.state
-    const cursor = disabled ? "not-allowed" : "default"
-    const style = { width, cursor }
-    const previewStyle = {
-      cursor,
-      "pointer-events": disabled ? "none" : "auto",
-    }
     const blockStyle = {
       backgroundColor: value,
       opacity: disabled ? "0.4" : "",
     }
 
     return (
-      <StyledColorPicker data-testid="stColorPicker" style={style}>
+      <StyledColorPicker
+        data-testid="stColorPicker"
+        width={width}
+        isDisabled={Boolean(disabled)}
+      >
         <WidgetLabel
           label={label}
           disabled={disabled}
@@ -143,7 +141,7 @@ class BaseColorPicker extends React.PureComponent<
             </StyledChromePicker>
           )}
         >
-          <StyledColorPreview style={previewStyle}>
+          <StyledColorPreview isDisabled={Boolean(disabled)}>
             <StyledColorBlock style={blockStyle} data-testid="stColorBlock" />
             {showValue && (
               <StyledColorValue>{value.toUpperCase()}</StyledColorValue>
