@@ -147,7 +147,7 @@ class StatusWidget extends PureComponent<StatusWidgetProps, State> {
     }
   }
 
-  handleKeyDown = (keyName: string, e: KeyboardEvent): void => {
+  handleKeyDown = (keyName: string): void => {
     // NOTE: 'r' is handled at the App Level
     if (keyName === "a") {
       this.handleAlwaysRerunClick()

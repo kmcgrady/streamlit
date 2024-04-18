@@ -54,7 +54,7 @@ export function mockWindowLocation(hostname: string): void {
 
   // @ts-expect-error
   window.location = {
-    assign: jest.fn(),
+    assign: vi.fn(),
     hostname: hostname,
   }
 }

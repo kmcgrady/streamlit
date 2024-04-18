@@ -19,17 +19,6 @@ import { ChevronLeft } from "react-feather"
 import { darken } from "color2k"
 import { Small } from "@streamlit/lib"
 
-export const StyledRerunHeader = styled.div(({ theme }) => ({
-  marginBottom: theme.spacing.sm,
-}))
-
-export const StyledCommandLine = styled.textarea(({ theme }) => ({
-  width: theme.sizes.full,
-  fontFamily: theme.genericFonts.codeFont,
-  fontSize: theme.fontSizes.sm,
-  height: "6rem",
-}))
-
 export const StyledShortcutLabel = styled.span(() => ({
   "&::first-letter": {
     textDecoration: "underline",

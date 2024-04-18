@@ -15,17 +15,12 @@
  */
 
 import axios from "axios"
-import WS from "vitest-websocket-mock"
+import { default as WS } from "vitest-websocket-mock"
 import zip from "lodash/zip"
 import React, { Fragment } from "react"
 
 import { ConnectionState } from "@streamlit/app/src/connection/ConnectionState"
-import {
-  SessionInfo,
-  mockEndpoints,
-  mockSessionInfoProps,
-  BackMsg,
-} from "@streamlit/lib"
+import { SessionInfo, mockEndpoints } from "@streamlit/lib"
 import {
   CORS_ERROR_MESSAGE_DOCUMENTATION_LINK,
   StyledBashCode,
@@ -80,7 +75,6 @@ describe("doInitPings", () => {
   }
 
   let originalAxiosGet: any
-  let originalPromiseAll: any
 
   beforeEach(() => {
     originalAxiosGet = axios.get

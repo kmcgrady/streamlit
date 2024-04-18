@@ -190,7 +190,6 @@ describe("DeckGlJsonChart element", () => {
       stateOverride: Partial<State>
     ): void => {
       // the description will be passed in
-      // eslint-disable-next-line jest/valid-title
       it(description, () => {
         DeckGlJsonChart.getDeckObject(getProps(), originalState)
 

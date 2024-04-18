@@ -18,7 +18,7 @@ import React from "react"
 import "@testing-library/jest-dom"
 
 import * as reactDeviceDetect from "react-device-detect"
-import { fireEvent, screen, prettyDOM } from "@testing-library/react"
+import { fireEvent, screen } from "@testing-library/react"
 
 import {
   useIsOverflowing,
@@ -310,17 +310,15 @@ describe("SidebarNav", () => {
     expect(links[1]).toHaveTextContent("🦈")
   })
 
-  it.only("indicates the current page as active", () => {
+  it("indicates the current page as active", () => {
     const props = getProps({ currentPageScriptHash: "other_page_hash" })
     render(<SidebarNav {...props} />)
 
     const links = screen.getAllByTestId("stSidebarNavLink")
-    console.log(window.getComputedStyle(links[0]))
-    console.log(prettyDOM(links[1]))
     expect(links).toHaveLength(2)
 
     // isActive prop used to style background color, so check that
-    expect(links[0]).toHaveStyle("background-color: transparent")
+    expect(links[0]).toHaveStyle("background-color: rgba(0, 0, 0, 0)")
     expect(links[1]).toHaveStyle("background-color: rgba(151, 166, 195, 0.15)")
   })
 

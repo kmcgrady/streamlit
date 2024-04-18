@@ -17,7 +17,10 @@
 import styled from "@emotion/styled"
 import { keyframes } from "@emotion/react"
 import { transparentize } from "color2k"
-import { getWrappedHeadersStyle } from "@streamlit/lib/src/theme/utils"
+import {
+  getWrappedHeadersStyle,
+  hasLightBackgroundColor,
+} from "@streamlit/lib/src/theme/utils"
 
 export interface StyledSidebarProps {
   isCollapsed: boolean

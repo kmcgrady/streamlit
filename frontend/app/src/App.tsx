@@ -1438,7 +1438,6 @@ export class App extends PureComponent<Props, State> {
    * Asks the server to clear the st_cache and st_cache_data and st_cache_resource
    */
   clearCache = (): void => {
-    console.log("Clearing cache")
     this.closeDialog()
     if (this.isServerConnected()) {
       this.metricsMgr.enqueue("clearCache")
@@ -1646,7 +1645,7 @@ export class App extends PureComponent<Props, State> {
     }
   }
 
-  handleKeyDown = (keyName: string, e: KeyboardEvent): void => {
+  handleKeyDown = (keyName: string): void => {
     switch (keyName) {
       case "c":
         // CLEAR CACHE
@@ -1666,7 +1665,7 @@ export class App extends PureComponent<Props, State> {
     }
   }
 
-  handleKeyUp = (keyName: string, e: KeyboardEvent): void => {
+  handleKeyUp = (keyName: string): void => {
     if (keyName === "esc") {
       this.props.screenCast.stopRecording()
     }

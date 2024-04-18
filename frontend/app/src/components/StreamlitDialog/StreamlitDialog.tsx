@@ -26,7 +26,6 @@ import {
   StreamlitMarkdown,
   IException,
 } from "@streamlit/lib"
-import Hotkeys from "react-hot-keys"
 
 import { STREAMLIT_HOME_URL } from "@streamlit/app/src/urls"
 import { Props as SettingsDialogProps, SettingsDialog } from "./SettingsDialog"
@@ -36,8 +35,6 @@ import ThemeCreatorDialog, {
 import { DeployDialog, DeployDialogProps } from "./DeployDialog"
 
 import {
-  StyledRerunHeader,
-  StyledCommandLine,
   StyledDeployErrorContent,
   StyledAboutInfo,
   StyledAboutLink,

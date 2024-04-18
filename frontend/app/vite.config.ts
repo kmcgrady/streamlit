@@ -42,9 +42,7 @@ export default defineConfig({
     },
   },
   server: {
-    // this ensures that the browser opens upon server start
     open: true,
-    // this sets a default port to 3000
     port: 3000,
   },
   build: {
@@ -54,13 +52,13 @@ export default defineConfig({
         chunkFileNames: "static/js/[name].[hash].js",
         // Ensure assetFileNames is also configured if you're handling asset files
         assetFileNames: assetInfo => {
-          if (assetInfo.name.endsWith(".css")) {
+          if (assetInfo.name?.endsWith(".css")) {
             // For CSS files, place them in the /static/css/ directory
             return "static/css/[name].[hash][extname]"
-          } else {
-            // For other assets, use the /static/media/ directory
-            return "static/media/[name].[hash][extname]"
           }
+
+          // For other assets, use the /static/media/ directory
+          return "static/media/[name].[hash][extname]"
         },
       },
     },
@@ -74,6 +72,10 @@ export default defineConfig({
       reporter: ["text", "json", "html"],
       include: ["src/**/*"],
       exclude: [],
+    },
+    server: {
+      // Want a Non-Dev port for testing
+      port: 3001,
     },
   },
 })
