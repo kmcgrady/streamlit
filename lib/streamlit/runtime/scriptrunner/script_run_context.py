@@ -61,7 +61,6 @@ class ScriptRunContext:
     session_state: SafeSessionState
     uploaded_file_mgr: UploadedFileManager
     main_script_path: str
-    page_script_hash: str
     user_info: UserInfo
     fragment_storage: "FragmentStorage"
     pages_manager: "PagesManager"
@@ -89,6 +88,14 @@ class ScriptRunContext:
     _experimental_query_params_used = False
     _production_query_params_used = False
 
+    @property
+    def page_script_hash(self):
+        return self.pages_manager.current_page_script_hash()
+
+    @property
+    def active_page_script_hash(self):
+        return self.pages_manager.get_active_page_script_hash()
+
     def reset(
         self,
         query_string: str = "",
@@ -100,7 +107,7 @@ class ScriptRunContext:
         self.widget_user_keys_this_run = set()
         self.form_ids_this_run = set()
         self.query_string = query_string
-        self.page_script_hash = page_script_hash
+        self.pages_manager.set_current_page_script_hash(page_script_hash)
         # Permit set_page_config when the ScriptRunContext is reused on a rerun
         self._set_page_config_allowed = True
         self._has_script_started = False
@@ -143,6 +150,8 @@ class ScriptRunContext:
             msg.HasField("delta") and self._has_script_started
         ):
             self._set_page_config_allowed = False
+
+        msg.metadata.page_script_hash = self.pages_manager.get_active_page_script_hash()
 
         # Pass the message up to our associated ScriptRunner.
         self._enqueue(msg)
